@@ -1,0 +1,11 @@
+
+- add structure to the elements with responsiveness
+
+- add styling
+
+- implement firebase authentication and authorization for one user
+- implement the app as Progressive Web App
+
+- add 'click again to confirm' onto the reset button
+
+- implement the option to create accounts
