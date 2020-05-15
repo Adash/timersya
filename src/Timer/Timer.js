@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TimeHistory from './TimeHistory';
 import moment from 'moment';
 
@@ -29,34 +29,45 @@ const TimerDisplay = ({ seconds }) => {
     </TimerDisplayWrapper>
   );
 };
+const calculateTimeLeft = (start, seconds = 0) =>
+  seconds + Math.trunc(new Date().getTime() / 1000) - start;
 
 const Timer = () => {
   const [timesList, setTimesList] = useState([]);
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
-  const [secondsTimer, setSecondsTimer] = useState(false);
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [timerInterval, setTimerInterval] = useState(false);
 
   const startTimer = () => {
     setRunning(true);
-    setSecondsTimer(
+    const startTime = Math.trunc(new Date().getTime() / 1000);
+    setTimerInterval(
       setInterval(() => {
-        setSeconds((prevState) => prevState + 1);
+        setTimeElapsed(calculateTimeLeft(startTime, seconds));
       }, 1000)
     );
   };
 
+  useEffect(() => {
+    setSeconds(timeElapsed);
+  }, [timeElapsed]);
+
   const stopTimer = () => {
     setRunning(false);
-    clearInterval(secondsTimer);
+    clearInterval(timerInterval);
   };
 
   const resetTimer = () => {
     setRunning(false);
-    clearInterval(secondsTimer);
+    clearInterval(timerInterval);
     setSeconds(0);
   };
 
   const saveTime = () => {
+    if (seconds === 0) {
+      return;
+    }
     const currentDateTime = moment().format('h:mm DD-MM-YY');
     const newTime = {
       date: currentDateTime,
