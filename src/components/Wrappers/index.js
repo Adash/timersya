@@ -1,3 +1,4 @@
 import BaseWrapper from './BaseWrapper';
+import MainWrapper from './MainWrapper';
 
-export { BaseWrapper };
+export { BaseWrapper, MainWrapper };

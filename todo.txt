@@ -1,7 +1,5 @@
 
-- add structure to the elements with responsiveness
-
-- add styling
+- add routing/landing page
 
 - implement firebase authentication and authorization for one user
 - implement the app as Progressive Web App

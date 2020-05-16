@@ -8,8 +8,8 @@ import {
   TimerButtonStart,
   TimerButtonStop,
 } from '../components/Buttons';
-import TimerWrapper from './TimerWrapper';
 import TimerDisplayWrapper from './TimerDisplayWrapper';
+import TimerWrapper from './TimerWrapper';
 
 const getOnlyHours = (number) =>
   Math.floor((number % (60 * 60 * 24)) / (60 * 60));
