@@ -15,15 +15,18 @@ const HomeWrapper = styled.div`
 
 const ButtonLink = styled(Link)`
   color: #ebe9e9;
+  background-color: #067bc2;
   border: none;
   padding: 30px 30px 30px 30px;
+  width: 130px;
   font-size: 1.5rem;
   font-weight: bold;
   transition: 0.3s all ease-out;
-  background-color: #067bc2;
   border-radius: 2px 2px 2px 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 5px;
+
   &:hover {
     background-color: #2c95ce;
     text-decoration: none;
@@ -37,6 +40,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <ButtonLink to={routes.timer}>Timer</ButtonLink>
+      <ButtonLink to={routes.login}>Login</ButtonLink>
     </HomeWrapper>
   );
 };

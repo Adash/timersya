@@ -10,6 +10,7 @@ import * as routes from '../constants/routes';
 import Header from '../Header';
 import Home from '../Home/Home';
 import Timer from '../Timer/Timer';
+import LoginPage from '../Login/LoginPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         >
           <Home path={routes.home} />
           <Timer path={routes.timer} />
+          <LoginPage path={routes.login} />
         </Router>
       </MainWrapper>
     </BaseWrapper>

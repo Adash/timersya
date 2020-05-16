@@ -7,8 +7,8 @@ const Header = () => {
   return (
     <div
       css={`
-        background-color: white;
-        color: ${colors.gunmetal};
+        background-color: #067bc2;
+        color: #ebe9e9;
         width: 100%;
         padding: 10px;
         display: flex;
