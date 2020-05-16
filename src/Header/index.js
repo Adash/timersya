@@ -1,7 +1,7 @@
 import React from 'react';
 import 'styled-components/macro';
-import colors from '../resources/colors';
-// import menuLogo from '../resources/icons/menu.png';
+import * as routes from '../constants/routes';
+import { Link } from '@reach/router';
 
 const Header = () => {
   return (
@@ -17,14 +17,32 @@ const Header = () => {
       `}
     >
       {/* <a src={menuLogo} href="/" style={{ size: 10 }} alt="home"></a> */}
-      <span
+      <Link
+        to={routes.home}
         css={`
-          font-size: 1.5rem;
-          font-weight: bold;
+          color: #ebe9e9;
+          text-decoration: none;
+          &:hover {
+            text-decoration: none;
+            color: #fbfbfb;
+          }
+          &:active {
+            color: #0b4f6c;
+            text-shadow: 0 0 20px #fff, 0 0 30px #77cae7, 0 0 40px #77cae7,
+              0 0 50px #77cae7, 0 0 60px #77cae7, 0 0 70px #77cae7,
+              0 0 80px #77cae7;
+          }
         `}
       >
-        T i m e r s y a
-      </span>
+        <span
+          css={`
+            font-size: 1.5rem;
+            font-weight: bold;
+          `}
+        >
+          T i m e r s y a
+        </span>
+      </Link>
       {/* <a src={menuLogo} href="/" alt="home"></a> */}
     </div>
   );

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from '@reach/router';
 import * as routes from '../constants/routes';
 import styled from 'styled-components';
+import { Button } from '../components/Buttons';
+import { auth } from '../services/firebase';
 
 const HomeWrapper = styled.div`
   height: 100%;
@@ -36,13 +38,31 @@ const ButtonLink = styled(Link)`
   }
 `;
 
-const Home = () => {
+const UnauthenticatedHome = () => {
   return (
     <HomeWrapper>
-      <ButtonLink to={routes.timer}>Timer</ButtonLink>
       <ButtonLink to={routes.login}>Login</ButtonLink>
     </HomeWrapper>
   );
 };
 
-export default Home;
+const AuthenticatedHome = () => {
+  const signOut = () => {
+    auth()
+      .signOut()
+      .then(() => {
+        console.log('signed out');
+      })
+      .catch((error) => {
+        console.log(`something wrong happened. I think ${error}`);
+      });
+  };
+  return (
+    <HomeWrapper>
+      <ButtonLink to={routes.timer}>Timer</ButtonLink>
+      <Button onClick={signOut}>Sign out</Button>
+    </HomeWrapper>
+  );
+};
+
+export { UnauthenticatedHome, AuthenticatedHome };

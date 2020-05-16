@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { signIn } from '../services/helpers';
+import { useNavigate } from '@reach/router';
+import * as routes from '../constants/routes';
 
 const LoginWrapper = styled.div`
   height: 100%;
@@ -9,6 +12,11 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const StyledError = styled.p`
+  color: red;
+  font-weight: bold;
 `;
 
 const StyledForm = styled.form`
@@ -46,11 +54,19 @@ const FormButton = styled.button`
 `;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     console.log(`email: ${email} - password : ${password}`);
+    signIn(email, password)
+      .then(() => {
+        navigate(routes.home);
+      })
+      .catch((error) => setError(JSON.stringify(error.message)));
   };
 
   return (
@@ -60,17 +76,20 @@ const LoginPage = () => {
         <input
           id="email"
           value={email}
+          type="email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label for="email">email</label>
+        <label htmlFor="email">email</label>
         <input
           id="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label for="password">password</label>
+        <label htmlFor="password">password</label>
         <FormButton type="submit">Login</FormButton>
       </StyledForm>
+      {error && <StyledError>{error}</StyledError>}
     </LoginWrapper>
   );
 };

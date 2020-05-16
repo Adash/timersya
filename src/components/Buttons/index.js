@@ -1,3 +1,4 @@
+import Button from './Button';
 import {
   TimerButtonReset,
   TimerButtonSave,
@@ -5,4 +6,10 @@ import {
   TimerButtonStop,
 } from './TimerButtons';
 
-export { TimerButtonReset, TimerButtonSave, TimerButtonStart, TimerButtonStop };
+export {
+  Button,
+  TimerButtonReset,
+  TimerButtonSave,
+  TimerButtonStart,
+  TimerButtonStop,
+};
