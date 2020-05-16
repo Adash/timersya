@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { signIn } from '../services/helpers';
+import { signIn } from '../firebase/helpers';
 import { useNavigate } from '@reach/router';
 import * as routes from '../constants/routes';
 

@@ -7,7 +7,7 @@ import { BaseWrapper } from '../components/Wrappers';
 import { MainWrapper } from '../components/Wrappers';
 import { Router } from '@reach/router';
 import * as routes from '../constants/routes';
-import { auth } from '../services/firebase';
+import { auth } from '../firebase/';
 
 import Header from '../Header';
 import { UnauthenticatedHome, AuthenticatedHome } from '../Home/';

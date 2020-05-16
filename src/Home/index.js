@@ -3,7 +3,7 @@ import { Link } from '@reach/router';
 import * as routes from '../constants/routes';
 import styled from 'styled-components';
 import { Button } from '../components/Buttons';
-import { auth } from '../services/firebase';
+import { auth } from '../firebase/';
 
 const HomeWrapper = styled.div`
   height: 100%;
