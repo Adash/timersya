@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const FormButton = styled.button`
   color: #ebe9e9;
   background-color: #067bc2;
   border: none;
-  padding: 30px 25px 30px 25px;
-  width: 150px;
-  font-size: 1.5rem;
+  padding: 10px 10px 10px 10px;
+  width: 95px;
+  font-size: 1.3rem;
   font-weight: bold;
   transition: 0.3s all ease-out;
   border-radius: 2px 2px 2px 2px;
   text-decoration: none;
-  text-align: center;
   cursor: pointer;
-  margin-bottom: 5px;
+  /* margin-top: 10px; */
 
   &:hover {
     background-color: #2c95ce;
@@ -24,4 +23,4 @@ const Button = styled.button`
   }
 `;
 
-export default Button;
+export default FormButton;

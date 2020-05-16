@@ -13,6 +13,7 @@ import Header from '../Header';
 import { UnauthenticatedHome, AuthenticatedHome } from '../Home/';
 import Timer from '../Timer/Timer';
 import LoginPage from '../Login/LoginPage';
+import SignUpPage from '../SignUp/SignUpPage';
 
 const StyledRouter = styled(Router)`
   height: 100%;
@@ -38,6 +39,7 @@ const UnauthenticatedApp = () => (
       <StyledRouter>
         <UnauthenticatedHome path={routes.home} />
         <LoginPage path={routes.login} />
+        <SignUpPage path={routes.signup} />
       </StyledRouter>
     </MainWrapper>
   </>

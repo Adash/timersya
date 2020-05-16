@@ -20,12 +20,13 @@ const ButtonLink = styled(Link)`
   background-color: #067bc2;
   border: none;
   padding: 30px 30px 30px 30px;
-  width: 130px;
+  width: 150px;
   font-size: 1.5rem;
   font-weight: bold;
   transition: 0.3s all ease-out;
   border-radius: 2px 2px 2px 2px;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
   margin-bottom: 5px;
 
@@ -42,6 +43,7 @@ const UnauthenticatedHome = () => {
   return (
     <HomeWrapper>
       <ButtonLink to={routes.login}>Login</ButtonLink>
+      <ButtonLink to={routes.signup}>Sign up</ButtonLink>
     </HomeWrapper>
   );
 };
