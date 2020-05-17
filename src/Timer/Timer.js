@@ -64,6 +64,11 @@ const Timer = () => {
     setSeconds(0);
   };
 
+  const removeHistoryItem = (id) => {
+    const newHistory = timesList.filter((item) => item.id !== id);
+    setTimesList(newHistory);
+  };
+
   const saveTime = () => {
     if (seconds === 0) {
       return;
@@ -73,6 +78,8 @@ const Timer = () => {
       date: currentDateTime,
       hours: getOnlyHours(seconds),
       minutes: getOnlyMinutes(seconds),
+      id:
+        currentDateTime + seconds + Math.floor(Math.random() * Math.floor(10)),
     };
     setTimesList((prevState) => [...prevState, newTime]);
   };
@@ -90,7 +97,7 @@ const Timer = () => {
         <TimerButtonSave onClick={saveTime}>save</TimerButtonSave>
       </div>
 
-      <TimeHistory data={timesList} />
+      <TimeHistory data={timesList} removeHistoryItem={removeHistoryItem} />
     </TimerWrapper>
   );
 };

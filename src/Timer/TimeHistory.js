@@ -2,7 +2,7 @@ import React from 'react';
 import 'styled-components/macro';
 import { AntiButtonDelete } from '../components/Buttons';
 
-const Record = ({ hours, minutes, date }) => (
+const Record = ({ hours, minutes, date, id, removeHistoryItem }) => (
   <tr
     css={`
       color: gray;
@@ -19,12 +19,18 @@ const Record = ({ hours, minutes, date }) => (
       {hours}h{minutes}m
     </td>
     <td>
-      <AntiButtonDelete>remove</AntiButtonDelete>
+      <AntiButtonDelete
+        onClick={() => {
+          removeHistoryItem(id);
+        }}
+      >
+        remove
+      </AntiButtonDelete>
     </td>
   </tr>
 );
 
-const TimeHistory = ({ data }) => {
+const TimeHistory = ({ data, removeHistoryItem }) => {
   return (
     <table
       css={`
@@ -58,10 +64,12 @@ const TimeHistory = ({ data }) => {
         {Array.isArray(data) ? (
           data.map((item) => (
             <Record
-              key={item.date}
+              key={item.id}
               hours={item.hours}
               minutes={item.minutes}
               date={item.date}
+              id={item.id}
+              removeHistoryItem={removeHistoryItem}
             />
           ))
         ) : (
