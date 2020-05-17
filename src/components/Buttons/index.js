@@ -1,5 +1,6 @@
 import Button from './Button';
 import FormButton from './FormButton';
+import AntiButton, { AntiButtonDelete } from './AntiButton';
 import {
   TimerButtonReset,
   TimerButtonSave,
@@ -10,6 +11,8 @@ import {
 export {
   Button,
   FormButton,
+  AntiButton,
+  AntiButtonDelete,
   TimerButtonReset,
   TimerButtonSave,
   TimerButtonStart,

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'styled-components/macro';
+import { AntiButtonDelete } from '../components/Buttons';
 
 const Record = ({ hours, minutes, date }) => (
   <tr
@@ -17,6 +18,9 @@ const Record = ({ hours, minutes, date }) => (
     <td>
       {hours}h{minutes}m
     </td>
+    <td>
+      <AntiButtonDelete>remove</AntiButtonDelete>
+    </td>
   </tr>
 );
 
@@ -29,8 +33,9 @@ const TimeHistory = ({ data }) => {
         padding-inline-start: 0px;
         margin-top: 5px;
         width: 350px;
-        max-height: 50%;
-        overflow: scroll;
+        display: block;
+        height: 60%;
+        overflow-y: scroll;
       `}
     >
       <thead
