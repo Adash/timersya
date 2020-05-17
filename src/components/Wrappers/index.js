@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const BaseWrapper = styled.div`
   height: 100vh;
   max-height: 100vh;
-  background-color: black;
+  background-color: white;
   display: flex;
   flex-direction: column;
   overflow: hidden;
