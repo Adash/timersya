@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const AntiButton = styled.button`
+  touch-action: manipulation;
   background-color: Transparent;
   background-repeat: no-repeat;
   border: none;

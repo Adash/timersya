@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const TimerButton = styled.button`
+  touch-action: manipulation;
   background-color: ${(props) => props.color || '#6A8EAE'};
   color: ${(props) => props.textColor || '#ebe9e9'};
   border: none;

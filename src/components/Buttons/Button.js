@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
+  touch-action: manipulation;
   color: #ebe9e9;
   background-color: #067bc2;
   border: none;
