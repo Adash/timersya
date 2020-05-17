@@ -1,5 +1,4 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,6 +7,10 @@ body {
   /* colors */
   /* color: #2c4251; */
   color: #293241;
+  /* disable scroll */
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 code {

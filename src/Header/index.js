@@ -42,6 +42,13 @@ const Header = () => {
         >
           T i m e r s y a
         </span>
+        <span
+          css={`
+            font-size: 0.5rem;
+          `}
+        >
+          v0.3
+        </span>
       </Link>
       {/* <a src={menuLogo} href="/" alt="home"></a> */}
     </div>
