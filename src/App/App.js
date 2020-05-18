@@ -1,31 +1,18 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { Suspense, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { BaseWrapper } from '../components/Wrappers';
-import { auth } from '../firebase/';
+import { AuthContext } from '../firebase/authentication';
 
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [, setLoading] = useState(false);
-
-  useEffect(() => {
-    auth().onAuthStateChanged((user) => {
-      if (user) {
-        setAuthenticated(user);
-        setLoading(false);
-      } else {
-        setAuthenticated(false);
-        setLoading(false);
-      }
-    });
-  }, []);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <BaseWrapper>
-      {authenticated ? (
+      {currentUser ? (
         <Suspense fallback={<div>...loading</div>}>
           <AuthenticatedApp />
         </Suspense>

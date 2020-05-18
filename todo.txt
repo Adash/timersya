@@ -1,5 +1,8 @@
+- switch from using { db } to using firebase database from React.context
+
 - prevent scroll on mobile devices
 
+- fix the issue when the header (navbar) is dissapearing during user load
 
 - implement the app as Progressive Web App
 
@@ -9,4 +12,9 @@
 
 small tasks
 
-- fix the bux when the sign up (and maybe log in) form is moving up when the error message appears
+- fix the bux when the sign up (and maybe log in) 
+form is moving up when the error message appears
+
+bigger tasks
+
+- TimeHistory - line 48 : come up with better filtering solution

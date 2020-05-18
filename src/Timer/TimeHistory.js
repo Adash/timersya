@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'styled-components/macro';
 import { AntiButtonDelete } from '../components/Buttons';
-import { auth, db } from '../firebase';
+import { db } from '../firebase/Firebase';
+import { AuthContext } from '../firebase/authentication';
 
 const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => (
   <tr
@@ -31,8 +32,9 @@ const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => (
   </tr>
 );
 
-const TimeHistory = ({ data, removeHistoryItem }) => {
+const TimeHistory = ({ removeHistoryItem }) => {
   const [firebaseData, setFirebaseData] = useState([]);
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     try {
@@ -41,12 +43,14 @@ const TimeHistory = ({ data, removeHistoryItem }) => {
           setFirebaseData([]);
           return;
         }
-        const dataArray = Object.entries(snapshot.val()).map(
-          ([key, value]) => ({
+        // ok this way of filtering will work but come up with something
+        // which will perform better at scale (10000+ users)
+        const dataArray = Object.entries(snapshot.val())
+          .map(([key, value]) => ({
             ...value,
             id: key,
-          })
-        );
+          }))
+          .filter((item) => item.user === currentUser.uid);
         console.log(dataArray);
         setFirebaseData(dataArray);
       });
@@ -55,7 +59,7 @@ const TimeHistory = ({ data, removeHistoryItem }) => {
     } catch (error) {
       console.log(`Error happened: ${error}`);
     }
-  }, []);
+  }, [currentUser.uid]);
 
   return (
     <table

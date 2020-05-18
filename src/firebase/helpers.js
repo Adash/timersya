@@ -1,4 +1,4 @@
-import { auth } from '.';
+import { auth } from './Firebase';
 
 export function signIn(email, password) {
   return auth().signInWithEmailAndPassword(email, password);

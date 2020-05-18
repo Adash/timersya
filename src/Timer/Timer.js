@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TimeHistory from './TimeHistory';
 import moment from 'moment';
-import { auth, db } from '../firebase';
+import { db } from '../firebase/Firebase';
+import { AuthContext } from '../firebase/authentication';
 
 import {
   TimerButtonReset,
@@ -34,11 +35,11 @@ const calculateTimeLeft = (start, seconds = 0) =>
   seconds + Math.trunc(new Date().getTime() / 1000) - start;
 
 const Timer = () => {
-  const [timesList, setTimesList] = useState([]);
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   const startTimer = () => {
     setRunning(true);
@@ -66,8 +67,6 @@ const Timer = () => {
   };
 
   const removeHistoryItem = (id) => {
-    // const newHistory = timesList.filter((item) => item.id !== id);
-    // setTimesList(newHistory);
     db.ref(`TimesHistory/${id}`).remove();
   };
 
@@ -80,9 +79,13 @@ const Timer = () => {
       hours: getOnlyHours(seconds),
       minutes: getOnlyMinutes(seconds),
       seconds: getOnlySeconds(seconds),
+      // user:
     };
     try {
-      db.ref('TimesHistory').push({ ...newTime, user: auth().currentUser.uid });
+      db.ref('TimesHistory').push({
+        ...newTime,
+        user: currentUser.uid,
+      });
     } catch (error) {
       console.log(`Some data fetching error: ${error}`);
     }
@@ -101,7 +104,7 @@ const Timer = () => {
         <TimerButtonSave onClick={saveTime}>save</TimerButtonSave>
       </div>
 
-      <TimeHistory data={timesList} removeHistoryItem={removeHistoryItem} />
+      <TimeHistory removeHistoryItem={removeHistoryItem} />
     </TimerWrapper>
   );
 };
