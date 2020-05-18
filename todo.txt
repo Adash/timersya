@@ -1,3 +1,4 @@
+- prevent scroll on mobile devices
 
 
 - implement the app as Progressive Web App

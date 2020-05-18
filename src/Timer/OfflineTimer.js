@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TimeHistory from './TimeHistory';
 import moment from 'moment';
-import { auth, db } from '../firebase';
 
 import {
   TimerButtonReset,
@@ -66,26 +65,24 @@ const Timer = () => {
   };
 
   const removeHistoryItem = (id) => {
-    // const newHistory = timesList.filter((item) => item.id !== id);
-    // setTimesList(newHistory);
-    db.ref(`TimesHistory/${id}`).remove();
+    const newHistory = timesList.filter((item) => item.id !== id);
+    setTimesList(newHistory);
   };
 
   const saveTime = () => {
     if (seconds === 0) {
       return;
     }
+    const currentDateTime = moment().format('h:mm DD-MM-YY');
+    const randomNumber = Math.floor(Math.random() * Math.floor(100));
     const newTime = {
-      date: moment().format('h:mm DD-MM-YY'),
+      date: currentDateTime,
       hours: getOnlyHours(seconds),
       minutes: getOnlyMinutes(seconds),
-      seconds: getOnlySeconds(seconds),
+      id: `${currentDateTime}::${seconds}::${randomNumber}`,
     };
-    try {
-      db.ref('TimesHistory').push({ ...newTime, user: auth().currentUser.uid });
-    } catch (error) {
-      console.log(`Some data fetching error: ${error}`);
-    }
+    console.log(newTime.id);
+    setTimesList((prevState) => [...prevState, newTime]);
   };
 
   return (

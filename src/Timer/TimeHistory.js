@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'styled-components/macro';
 import { AntiButtonDelete } from '../components/Buttons';
+import { auth, db } from '../firebase';
 
-const Record = ({ hours, minutes, date, id, removeHistoryItem }) => (
+const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => (
   <tr
     css={`
       color: gray;
@@ -16,7 +17,7 @@ const Record = ({ hours, minutes, date, id, removeHistoryItem }) => (
       {date}
     </td>
     <td>
-      {hours}h{minutes}m
+      {hours}h{minutes}m{seconds}s
     </td>
     <td>
       <AntiButtonDelete
@@ -31,6 +32,31 @@ const Record = ({ hours, minutes, date, id, removeHistoryItem }) => (
 );
 
 const TimeHistory = ({ data, removeHistoryItem }) => {
+  const [firebaseData, setFirebaseData] = useState([]);
+
+  useEffect(() => {
+    try {
+      db.ref('TimesHistory').on('value', (snapshot) => {
+        if (snapshot.val() === null) {
+          setFirebaseData([]);
+          return;
+        }
+        const dataArray = Object.entries(snapshot.val()).map(
+          ([key, value]) => ({
+            ...value,
+            id: key,
+          })
+        );
+        console.log(dataArray);
+        setFirebaseData(dataArray);
+      });
+      // in the return statement below pass an cleanup function
+      return () => {};
+    } catch (error) {
+      console.log(`Error happened: ${error}`);
+    }
+  }, []);
+
   return (
     <table
       css={`
@@ -61,19 +87,22 @@ const TimeHistory = ({ data, removeHistoryItem }) => {
         </tr>
       </thead>
       <tbody>
-        {Array.isArray(data) ? (
-          data.map((item) => (
+        {Array.isArray(firebaseData) ? (
+          firebaseData.map((item) => (
             <Record
               key={item.id}
               hours={item.hours}
               minutes={item.minutes}
+              seconds={item.seconds}
               date={item.date}
               id={item.id}
               removeHistoryItem={removeHistoryItem}
             />
           ))
         ) : (
-          <p>No Data</p>
+          <tr>
+            <td>No Data</td>
+          </tr>
         )}
       </tbody>
     </table>
