@@ -79,13 +79,11 @@ const Timer = () => {
       hours: getOnlyHours(seconds),
       minutes: getOnlyMinutes(seconds),
       seconds: getOnlySeconds(seconds),
-      // user:
+      description: 'OmManiPemeHung',
+      user: currentUser.uid,
     };
     try {
-      db.ref('TimesHistory').push({
-        ...newTime,
-        user: currentUser.uid,
-      });
+      db.ref('TimesHistory').push(newTime);
     } catch (error) {
       console.log(`Some data fetching error: ${error}`);
     }

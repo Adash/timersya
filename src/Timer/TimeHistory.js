@@ -1,49 +1,110 @@
 import React, { useState, useEffect, useContext } from 'react';
 import 'styled-components/macro';
+import styled from 'styled-components';
 import { AntiButtonDelete } from '../components/Buttons';
 import { db } from '../firebase/Firebase';
 import { AuthContext } from '../firebase/authentication';
 
-const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
-  const [showButtons, setShowButtons] = useState(false);
-  return (
-    <div
+// some Consts for display mode of each element on the times history
+const DISPLAY = {
+  TIME: 'TIME',
+  OPTIONS: 'OPTIONS',
+  DATE: 'DATE',
+};
+//#
+
+const OptionsButton = styled.button`
+  background-color: ${(props) => (props.pressed ? '#fde74c' : '#067bc2')};
+  color: ${(props) => (props.pressed ? '#550e04' : '#ebe9e9')};
+  border: none;
+  border-radius: 1px 1px 1px 1px;
+  padding: 6px 10px 6px 10px;
+`;
+
+const ButtonBar = ({ displayMode, setDisplayMode }) => (
+  <div
+    css={`
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      height: 40px;
+    `}
+  >
+    <OptionsButton
+      onClick={() => {
+        setDisplayMode(DISPLAY.TIME);
+      }}
       css={`
-        widht: 100%;
-        color: #2d6f47;
-        cursor: pointer;
-        margin-bottom: 7px;
+        border-radius: 9px 1px 1px 9px;
       `}
+      pressed={displayMode === DISPLAY.TIME}
     >
-      <button
-        onClick={() => {
-          setShowButtons((prevState) => !prevState);
-        }}
-        css={`
-          background-color: #42bfdd;
-          color: #ebe9e9;
-          border: none;
-          border-radius: 9px 1px 1px 9px;
-          margin-right: 4px;
-        `}
-      >
-        {showButtons ? 'Time' : 'Options'}
-      </button>
-      {!showButtons ? (
-        <>
+      Time
+    </OptionsButton>
+    <OptionsButton
+      onClick={() => {
+        setDisplayMode(DISPLAY.OPTIONS);
+      }}
+      css={`
+        border-radius: 1px 1px 1px 1px;
+      `}
+      pressed={displayMode === DISPLAY.OPTIONS}
+    >
+      Options
+    </OptionsButton>
+    <OptionsButton
+      onClick={() => {
+        setDisplayMode(DISPLAY.DATE);
+      }}
+      css={`
+        border-radius: 1px 9px 9px 1px;
+      `}
+      pressed={displayMode === DISPLAY.DATE}
+    >
+      Date
+    </OptionsButton>
+  </div>
+);
+
+const RecordWrapper = styled.div`
+  width: 100%;
+  color: #2d6f47;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 7px;
+`;
+
+const Record = ({
+  item: { hours, minutes, seconds, date, id, description },
+  removeHistoryItem,
+  displayMode,
+}) => {
+  switch (displayMode) {
+    case DISPLAY.TIME:
+      return (
+        <RecordWrapper>
           <span
             css={`
-              padding-right: 10px;
+              color: #292e30;
             `}
           >
-            {date}
+            {hours}:{minutes}:{seconds}
           </span>
-          <span>
-            {hours}h{minutes}m{seconds}s
-          </span>
-        </>
-      ) : (
-        <span>
+          <span>{description}</span>
+        </RecordWrapper>
+      );
+    case DISPLAY.DATE:
+      return (
+        <RecordWrapper>
+          <span>{date}</span>
+        </RecordWrapper>
+      );
+    case DISPLAY.OPTIONS:
+      return (
+        <RecordWrapper>
           <AntiButtonDelete
             onClick={() => {
               removeHistoryItem(id);
@@ -51,15 +112,18 @@ const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
           >
             remove
           </AntiButtonDelete>
-        </span>
-      )}
-    </div>
-  );
+          <span>{description}</span>
+        </RecordWrapper>
+      );
+    default:
+      return null;
+  }
 };
 
 const TimeHistory = ({ removeHistoryItem }) => {
   const [firebaseData, setFirebaseData] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const [displayMode, setDisplayMode] = useState('TIME');
 
   useEffect(() => {
     try {
@@ -89,9 +153,8 @@ const TimeHistory = ({ removeHistoryItem }) => {
   return (
     <div
       css={`
-        margin: 1px;
         padding-inline-start: 0px;
-        margin-top: 20px;
+        margin-top: 10px;
         width: 350px;
         height: 65%;
         display: flex;
@@ -101,6 +164,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
         overflow-y: scroll;
       `}
     >
+      <ButtonBar displayMode={displayMode} setDisplayMode={setDisplayMode} />
       <div
         css={`
           width: 100%;
@@ -109,13 +173,9 @@ const TimeHistory = ({ removeHistoryItem }) => {
         {Array.isArray(firebaseData) ? (
           firebaseData.map((item) => (
             <Record
-              key={item.id}
-              hours={item.hours}
-              minutes={item.minutes}
-              seconds={item.seconds}
-              date={item.date}
-              id={item.id}
+              item={item}
               removeHistoryItem={removeHistoryItem}
+              displayMode={displayMode}
             />
           ))
         ) : (

@@ -1,4 +1,6 @@
 - switch from using { db } to using firebase database from React.context
+  eg. move data fetching logig into something similar like the 
+  currently used AuthContext
 
 - prevent scroll on mobile devices
 
@@ -18,3 +20,19 @@ form is moving up when the error message appears
 bigger tasks
 
 - TimeHistory - line 48 : come up with better filtering solution
+
+
+cheat sheet
+
+# Start a new feature
+git checkout -b new-feature master
+# Edit some files
+git add <file>
+git commit -m "Start a feature"
+# Edit some files
+git add <file>
+git commit -m "Finish a feature"
+# Merge in the new-feature branch
+git checkout master
+git merge new-feature
+git branch -d new-feature
