@@ -14,6 +14,8 @@
 
 small tasks
 
+-split home component in two components (unauthenticated and authenticated)
+
 - fix the bux when the sign up (and maybe log in) 
 form is moving up when the error message appears
 

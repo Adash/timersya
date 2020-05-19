@@ -1,28 +1,33 @@
 import styled from 'styled-components';
+import { Router } from '@reach/router';
 
-const BaseWrapper = styled.div`
-  height: 100vh;
-  max-height: 100vh;
-  background-color: white;
+const StyledRouter = styled(Router)`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  justify-content: center;
+  align-items: stretch;
 `;
 
 const MainWrapper = styled.div`
-  background-color: white;
-  height: 100%;
+  position: absolute;
+  top: 40px;
+  bottom: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
 `;
+
+// use for fixing reach router 'div bug'
+// const FlexWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: stretch;
+// `;
 
 const StyledForm = styled.form`
   margin-top: 15px;
-  height: 30%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -30,4 +35,4 @@ const StyledForm = styled.form`
   /* margin-bottom: 10px; */
 `;
 
-export { BaseWrapper, MainWrapper, StyledForm };
+export { StyledRouter, MainWrapper, StyledForm };

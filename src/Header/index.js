@@ -7,10 +7,15 @@ const Header = () => {
   return (
     <div
       css={`
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        box-shadow: 0 5px 20px -10px #000;
         background-color: #067bc2;
         color: #ebe9e9;
-        width: 100%;
-        padding: 10px;
+        height: 39px;
         display: flex;
         border-bottom: 1px solid #b8c2c6;
         justify-content: center;
@@ -47,7 +52,7 @@ const Header = () => {
             font-size: 0.5rem;
           `}
         >
-          v0.51
+          v0.61
         </span>
       </Link>
       {/* <a src={menuLogo} href="/" alt="home"></a> */}

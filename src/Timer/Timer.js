@@ -10,8 +10,26 @@ import {
   TimerButtonStart,
   TimerButtonStop,
 } from '../components/Buttons';
-import TimerDisplayWrapper from './TimerDisplayWrapper';
-import TimerWrapper from './TimerWrapper';
+import styled from 'styled-components';
+
+const TimerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+`;
+
+const TimerDisplayWrapper = styled.div`
+  text-align: center;
+  /* margin-top: 1.5rem; */
+  margin-bottom: 0rem;
+  font-weight: bold;
+  font-size: 4.5rem;
+  color: #292e30;
+  display: flex;
+  justify-content: flex-start;
+`;
 
 const getOnlyHours = (number) =>
   Math.floor((number % (60 * 60 * 24)) / (60 * 60));

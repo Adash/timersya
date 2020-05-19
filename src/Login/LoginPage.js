@@ -9,8 +9,6 @@ import { StyledError, H1 } from '../components/Elements';
 const StyledForm = styled.form`
   color: #4b4f5d;
   margin-top: 15px;
-  height: 30%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,9 +16,6 @@ const StyledForm = styled.form`
   margin-bottom: 5px;
 `;
 const LoginWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
   display: flex;
   flex-direction: column;
   justify-content: center;

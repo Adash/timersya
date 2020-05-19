@@ -6,9 +6,6 @@ import { Button } from '../components/Buttons';
 import { auth } from '../firebase/Firebase';
 
 const HomeWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
   display: flex;
   flex-direction: column;
   justify-content: center;
