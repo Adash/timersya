@@ -4,33 +4,56 @@ import { AntiButtonDelete } from '../components/Buttons';
 import { db } from '../firebase/Firebase';
 import { AuthContext } from '../firebase/authentication';
 
-const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => (
-  <tr
-    css={`
-      color: gray;
-    `}
-  >
-    <td
+const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
+  const [showButtons, setShowButtons] = useState(false);
+  return (
+    <tr
       css={`
-        padding-right: 10px;
+        widht: 100%;
+        color: #2d6f47;
+        cursor: pointer;
       `}
     >
-      {date}
-    </td>
-    <td>
-      {hours}h{minutes}m{seconds}s
-    </td>
-    <td>
-      <AntiButtonDelete
+      <button
         onClick={() => {
-          removeHistoryItem(id);
+          setShowButtons((prevState) => !prevState);
         }}
+        css={`
+          background-color: #42bfdd;
+          color: #ebe9e9;
+          border: none;
+          border-radius: 9px 1px 1px 9px;
+        `}
       >
-        remove
-      </AntiButtonDelete>
-    </td>
-  </tr>
-);
+        {showButtons ? 'Time' : 'Options'}
+      </button>
+      {!showButtons ? (
+        <>
+          <td
+            css={`
+              padding-right: 10px;
+            `}
+          >
+            {date}
+          </td>
+          <td>
+            {hours}h{minutes}m{seconds}s
+          </td>
+        </>
+      ) : (
+        <td>
+          <AntiButtonDelete
+            onClick={() => {
+              removeHistoryItem(id);
+            }}
+          >
+            remove
+          </AntiButtonDelete>
+        </td>
+      )}
+    </tr>
+  );
+};
 
 const TimeHistory = ({ removeHistoryItem }) => {
   const [firebaseData, setFirebaseData] = useState([]);
@@ -64,18 +87,22 @@ const TimeHistory = ({ removeHistoryItem }) => {
   return (
     <table
       css={`
-        list-style: none;
+        table-layout: fixed;
         margin: 1px;
         padding-inline-start: 0px;
         margin-top: 5px;
         width: 350px;
-        display: block;
         height: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
         overflow-y: scroll;
       `}
     >
       <thead
         css={`
+          width: 100%;
           background-color: white;
         `}
       >
@@ -90,7 +117,11 @@ const TimeHistory = ({ removeHistoryItem }) => {
           <th>How long</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody
+        css={`
+          width: 100%;
+        `}
+      >
         {Array.isArray(firebaseData) ? (
           firebaseData.map((item) => (
             <Record
