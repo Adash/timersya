@@ -7,11 +7,12 @@ import { AuthContext } from '../firebase/authentication';
 const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
   const [showButtons, setShowButtons] = useState(false);
   return (
-    <tr
+    <div
       css={`
         widht: 100%;
         color: #2d6f47;
         cursor: pointer;
+        margin-bottom: 7px;
       `}
     >
       <button
@@ -23,25 +24,26 @@ const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
           color: #ebe9e9;
           border: none;
           border-radius: 9px 1px 1px 9px;
+          margin-right: 4px;
         `}
       >
         {showButtons ? 'Time' : 'Options'}
       </button>
       {!showButtons ? (
         <>
-          <td
+          <span
             css={`
               padding-right: 10px;
             `}
           >
             {date}
-          </td>
-          <td>
+          </span>
+          <span>
             {hours}h{minutes}m{seconds}s
-          </td>
+          </span>
         </>
       ) : (
-        <td>
+        <span>
           <AntiButtonDelete
             onClick={() => {
               removeHistoryItem(id);
@@ -49,9 +51,9 @@ const Record = ({ hours, minutes, seconds, date, id, removeHistoryItem }) => {
           >
             remove
           </AntiButtonDelete>
-        </td>
+        </span>
       )}
-    </tr>
+    </div>
   );
 };
 
@@ -85,14 +87,13 @@ const TimeHistory = ({ removeHistoryItem }) => {
   }, [currentUser.uid]);
 
   return (
-    <table
+    <div
       css={`
-        table-layout: fixed;
         margin: 1px;
         padding-inline-start: 0px;
-        margin-top: 5px;
+        margin-top: 20px;
         width: 350px;
-        height: 60%;
+        height: 65%;
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -100,24 +101,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
         overflow-y: scroll;
       `}
     >
-      <thead
-        css={`
-          width: 100%;
-          background-color: white;
-        `}
-      >
-        <tr>
-          <th
-            css={`
-              padding-right: 10px;
-            `}
-          >
-            When
-          </th>
-          <th>How long</th>
-        </tr>
-      </thead>
-      <tbody
+      <div
         css={`
           width: 100%;
         `}
@@ -135,12 +119,12 @@ const TimeHistory = ({ removeHistoryItem }) => {
             />
           ))
         ) : (
-          <tr>
-            <td>No Data</td>
-          </tr>
+          <div>
+            <p>No Data</p>
+          </div>
         )}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 };
 
