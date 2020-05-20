@@ -52,7 +52,7 @@ const Header = () => {
             font-size: 0.5rem;
           `}
         >
-          v0.63
+          v0.64
         </span>
       </Link>
       {/* <a src={menuLogo} href="/" alt="home"></a> */}

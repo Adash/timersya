@@ -8,7 +8,7 @@ const StyledRouter = styled(Router)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: stretch;
 `;
 
@@ -22,11 +22,10 @@ const MainWrapper = styled.div`
   align-items: stretch;
 `;
 
-// use for fixing reach router 'div bug'
-// const FlexWrapper = styled.div`
+// const HomeWrapper = styled.div`
 //   display: flex;
 //   flex-direction: column;
-//   align-items: stretch;
+//   align-items: center;
 // `;
 
 const StyledForm = styled.form`

@@ -1,12 +1,11 @@
-!!! - Fix scrolling for history list 
+
+- fix the issue when the header (navbar) is dissapearing during user load
 
 - switch from using { db } to using firebase database from React.context
   eg. move data fetching logig into something similar like the 
   currently used AuthContext
 
-- prevent scroll on mobile devices
-
-- fix the issue when the header (navbar) is dissapearing during user load
+- prevent scroll on mobile devices (in homescreen launch mode)
 
 - implement the app as Progressive Web App
 
