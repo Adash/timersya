@@ -24,6 +24,7 @@ const OptionsButton = styled.button`
 const ButtonBar = ({ displayMode, setDisplayMode }) => (
   <div
     css={`
+      flex: 0 0 40px;
       width: 100%;
       display: flex;
       justify-content: space-between;
