@@ -2,6 +2,7 @@ import React, { Suspense, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { AuthContext } from '../firebase/authentication';
+import LoadingFallback from './LoadingFallback';
 
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
@@ -12,11 +13,11 @@ function App() {
   return (
     <>
       {currentUser ? (
-        <Suspense fallback={<div>...loading</div>}>
+        <Suspense fallback={<LoadingFallback />}>
           <AuthenticatedApp />
         </Suspense>
       ) : (
-        <Suspense fallback={<div>...loading</div>}>
+        <Suspense fallback={<LoadingFallback />}>
           <UnauthenticatedApp />
         </Suspense>
       )}
