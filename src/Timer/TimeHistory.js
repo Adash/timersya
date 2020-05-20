@@ -152,6 +152,8 @@ const TimeHistory = ({ removeHistoryItem }) => {
   return (
     <div
       css={`
+        flex: 1 1 auto;
+        overflow-y: scroll;
         padding-inline-start: 0px;
         margin-top: 10px;
         width: 100%;
@@ -161,7 +163,6 @@ const TimeHistory = ({ removeHistoryItem }) => {
         flex-direction: column;
         align-items: stretch;
         justify-content: flex-start;
-        overflow-y: scroll;
       `}
     >
       <ButtonBar displayMode={displayMode} setDisplayMode={setDisplayMode} />

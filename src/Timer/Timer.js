@@ -13,11 +13,15 @@ import {
 import styled from 'styled-components';
 
 const TimerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  flex-grow: 1;
+  /* flex-basis: 100%; */
 `;
 
 const TimerDisplayWrapper = styled.div`
@@ -110,7 +114,11 @@ const Timer = () => {
   return (
     <TimerWrapper>
       <TimerDisplay seconds={seconds} />
-      <div>
+      <div
+        css={`
+          flex-basis: 13%;
+        `}
+      >
         <TimerButtonReset onClick={resetTimer}>reset</TimerButtonReset>
         {!running ? (
           <TimerButtonStart onClick={startTimer}>start</TimerButtonStart>
