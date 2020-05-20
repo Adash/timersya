@@ -156,7 +156,8 @@ const TimeHistory = ({ removeHistoryItem }) => {
         overflow-y: scroll;
         padding-inline-start: 0px;
         margin-top: 10px;
-        width: 100%;
+        min-width: 360px;
+        max-width: 460px;
         padding-left: 5px;
         padding-right: 5px;
         display: flex;
@@ -174,6 +175,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
         {Array.isArray(firebaseData) ? (
           firebaseData.map((item) => (
             <Record
+              key={item.id}
               item={item}
               removeHistoryItem={removeHistoryItem}
               displayMode={displayMode}
