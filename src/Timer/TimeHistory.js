@@ -153,8 +153,8 @@ const TimeHistory = ({ removeHistoryItem }) => {
   return (
     <div
       css={`
-        flex: 1 1 auto;
-        overflow-y: scroll;
+        flex: 0 0 68%;
+        overflow-y: hidden;
         padding-inline-start: 0px;
         margin-top: 10px;
         min-width: 360px;
@@ -170,6 +170,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
       <ButtonBar displayMode={displayMode} setDisplayMode={setDisplayMode} />
       <div
         css={`
+          overflow-y: scroll;
           width: 100%;
         `}
       >
