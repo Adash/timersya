@@ -8,3 +8,9 @@ export const StyledError = styled.p`
   color: #ee6c4d;
   font-weight: bold;
 `;
+
+export const NakedInput = styled.input`
+  border: none;
+  color: #2d6f47;
+  background-color: #edf8f8;
+`;

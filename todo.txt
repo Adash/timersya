@@ -18,6 +18,8 @@ form is moving up when the error message appears
 
 bigger tasks
 
+- refactor and tidy up times history
+
 - TimeHistory - line 48 : come up with better filtering solution
 
 

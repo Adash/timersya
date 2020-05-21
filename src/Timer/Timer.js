@@ -92,6 +92,25 @@ const Timer = () => {
     db.ref(`TimesHistory/${id}`).remove();
   };
 
+  const editDescription = (id, newDescription) => {
+    // console.log(`description ${newDescription}
+    // id: ${id}`);
+    try {
+      db.ref(`TimesHistory/${id}`)
+        .once('value')
+        .then((snapshot) => {
+          const record = snapshot.val();
+          console.log(`description ${newDescription}`);
+          db.ref(`TimesHistory/${id}`).set({
+            ...record,
+            description: newDescription,
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const saveTime = () => {
     if (seconds === 0) {
       return;
@@ -128,7 +147,10 @@ const Timer = () => {
         <TimerButtonSave onClick={saveTime}>save</TimerButtonSave>
       </div>
 
-      <TimeHistory removeHistoryItem={removeHistoryItem} />
+      <TimeHistory
+        removeHistoryItem={removeHistoryItem}
+        editDescription={editDescription}
+      />
     </TimerWrapper>
   );
 };

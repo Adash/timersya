@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import 'styled-components/macro';
 import styled from 'styled-components';
-import { AntiButtonDelete } from '../components/Buttons';
+import {
+  AntiButtonDelete,
+  AntiButtonEdit,
+  AntiButtonOK,
+} from '../components/Buttons/AntiButtons';
+import { NakedInput } from '../components/Elements';
 import { db } from '../firebase/Firebase';
 import { AuthContext } from '../firebase/authentication';
 
@@ -75,16 +80,21 @@ const RecordWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 7px;
+  font-size: 1.2rem;
 `;
 
 const Record = ({
   item: { hours, minutes, seconds, date, id, description },
   removeHistoryItem,
+  editDescription,
   displayMode,
 }) => {
+  const [showEditField, setShowEditField] = useState(false);
+
   switch (displayMode) {
     case DISPLAY.TIME:
       return (
+        // in the future extract those into separate components
         <RecordWrapper>
           <span
             css={`
@@ -112,7 +122,25 @@ const Record = ({
           >
             remove
           </AntiButtonDelete>
-          <span>{description}</span>
+          {showEditField ? (
+            <DescriptionInputField
+              id={id}
+              description={description}
+              editDescription={editDescription}
+              setShowEditField={setShowEditField}
+            />
+          ) : (
+            <>
+              <AntiButtonEdit
+                onClick={() => {
+                  setShowEditField(true);
+                }}
+              >
+                edit
+              </AntiButtonEdit>
+              <span>{description}</span>
+            </>
+          )}
         </RecordWrapper>
       );
     default:
@@ -120,7 +148,31 @@ const Record = ({
   }
 };
 
-const TimeHistory = ({ removeHistoryItem }) => {
+const DescriptionInputField = ({
+  id,
+  description,
+  editDescription,
+  setShowEditField,
+}) => {
+  const [newDescription, setNewDescription] = useState(description);
+  const onEdit = () => {
+    editDescription(id, newDescription);
+    setShowEditField(false);
+  };
+
+  return (
+    <form onSubmit={onEdit}>
+      <NakedInput
+        type="text"
+        value={newDescription}
+        onChange={(e) => setNewDescription(e.target.value)}
+      />
+      <AntiButtonOK type="submit">save</AntiButtonOK>
+    </form>
+  );
+};
+
+const TimeHistory = ({ removeHistoryItem, editDescription }) => {
   const [firebaseData, setFirebaseData] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const [displayMode, setDisplayMode] = useState('TIME');
@@ -171,6 +223,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
       <div
         css={`
           overflow-y: scroll;
+          padding-right: 10px;
           width: 100%;
         `}
       >
@@ -180,6 +233,7 @@ const TimeHistory = ({ removeHistoryItem }) => {
               key={item.id}
               item={item}
               removeHistoryItem={removeHistoryItem}
+              editDescription={editDescription}
               displayMode={displayMode}
             />
           ))
