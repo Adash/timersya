@@ -2,6 +2,10 @@
 - switch from using { db } to using firebase database from React.context
   eg. move data fetching logig into something similar like the 
   currently used AuthContext
+  
+- fix the size 'flicker' when switching from time fo options 
+
+- fix bug in safari on ios when the whole up moves up after comment edit
 
 - prevent scroll on mobile devices (in homescreen launch mode)
 

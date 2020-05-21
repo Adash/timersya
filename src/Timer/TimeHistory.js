@@ -83,6 +83,10 @@ const RecordWrapper = styled.div`
   font-size: 1.2rem;
 `;
 
+const RecordOptionsWrapper = styled(RecordWrapper)`
+  justify-content: flex-start;
+`;
+
 const Record = ({
   item: { hours, minutes, seconds, date, id, description },
   removeHistoryItem,
@@ -114,11 +118,14 @@ const Record = ({
       );
     case DISPLAY.OPTIONS:
       return (
-        <RecordWrapper>
+        <RecordOptionsWrapper>
           <AntiButtonDelete
             onClick={() => {
               removeHistoryItem(id);
             }}
+            css={`
+              flex: 0 0 auto;
+            `}
           >
             remove
           </AntiButtonDelete>
@@ -135,13 +142,23 @@ const Record = ({
                 onClick={() => {
                   setShowEditField(true);
                 }}
+                css={`
+                  flex: 0 0 auto;
+                `}
               >
                 edit
               </AntiButtonEdit>
-              <span>{description}</span>
+              <div
+                css={`
+                  flex: 1 1 auto;
+                  text-align: right;
+                `}
+              >
+                {description}
+              </div>
             </>
           )}
-        </RecordWrapper>
+        </RecordOptionsWrapper>
       );
     default:
       return null;

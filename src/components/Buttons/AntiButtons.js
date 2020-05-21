@@ -18,6 +18,7 @@ export const AntiButtonDelete = styled(AntiButton)`
 
 export const AntiButtonEdit = styled(AntiButton)`
   color: #3da5d9;
+  margin-left: 25px;
 `;
 
 export const AntiButtonOK = styled(AntiButton)`
