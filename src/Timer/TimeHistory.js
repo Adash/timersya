@@ -155,7 +155,8 @@ const DescriptionInputField = ({
   setShowEditField,
 }) => {
   const [newDescription, setNewDescription] = useState(description);
-  const onEdit = () => {
+  const onEdit = (e) => {
+    e.preventDefault();
     editDescription(id, newDescription);
     setShowEditField(false);
   };
