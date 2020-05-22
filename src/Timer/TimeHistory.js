@@ -17,6 +17,35 @@ const DISPLAY = {
   DATE: 'DATE',
 };
 //#
+// Styles
+const TimesHistoryWrapper = styled.div`
+  flex: 0 0 68%;
+  overflow-y: hidden;
+  padding-inline-start: 0px;
+  margin-top: 10px;
+  min-width: 360px;
+  max-width: 460px;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+`;
+
+const TimesHistoryListWrapper = styled.div`
+  overflow-y: scroll;
+  padding-right: 10px;
+  width: 100%;
+`;
+
+const StyledButtonBar = styled.div`
+  flex: 0 0 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
 
 const OptionsButton = styled.button`
   background-color: ${(props) => (props.pressed ? '#fde74c' : '#067bc2')};
@@ -26,16 +55,25 @@ const OptionsButton = styled.button`
   padding: 6px 10px 6px 10px;
 `;
 
+const RecordWrapper = styled.div`
+  width: 100%;
+  color: #2d6f47;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 1.2rem;
+`;
+
+const RecordOptionsWrapper = styled(RecordWrapper)`
+  justify-content: flex-start;
+`;
+
+// end Styles
+
 const ButtonBar = ({ displayMode, setDisplayMode }) => (
-  <div
-    css={`
-      flex: 0 0 40px;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    `}
-  >
+  <StyledButtonBar>
     <OptionsButton
       onClick={() => {
         setDisplayMode(DISPLAY.TIME);
@@ -69,23 +107,8 @@ const ButtonBar = ({ displayMode, setDisplayMode }) => (
     >
       Date
     </OptionsButton>
-  </div>
+  </StyledButtonBar>
 );
-
-const RecordWrapper = styled.div`
-  width: 100%;
-  color: #2d6f47;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 7px;
-  font-size: 1.2rem;
-`;
-
-const RecordOptionsWrapper = styled(RecordWrapper)`
-  justify-content: flex-start;
-`;
 
 const Record = ({
   item: { hours, minutes, seconds, date, id, description },
@@ -165,6 +188,7 @@ const Record = ({
   }
 };
 
+// gets displayed when you clik <edit> while on the options view
 const DescriptionInputField = ({
   id,
   description,
@@ -221,30 +245,9 @@ const TimeHistory = ({ removeHistoryItem, editDescription }) => {
   }, [currentUser.uid]);
 
   return (
-    <div
-      css={`
-        flex: 0 0 68%;
-        overflow-y: hidden;
-        padding-inline-start: 0px;
-        margin-top: 10px;
-        min-width: 360px;
-        max-width: 460px;
-        padding-left: 5px;
-        padding-right: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-      `}
-    >
+    <TimesHistoryWrapper>
       <ButtonBar displayMode={displayMode} setDisplayMode={setDisplayMode} />
-      <div
-        css={`
-          overflow-y: scroll;
-          padding-right: 10px;
-          width: 100%;
-        `}
-      >
+      <TimesHistoryListWrapper>
         {Array.isArray(firebaseData) ? (
           firebaseData.map((item) => (
             <Record
@@ -260,8 +263,8 @@ const TimeHistory = ({ removeHistoryItem, editDescription }) => {
             <p>No Data</p>
           </div>
         )}
-      </div>
-    </div>
+      </TimesHistoryListWrapper>
+    </TimesHistoryWrapper>
   );
 };
 
