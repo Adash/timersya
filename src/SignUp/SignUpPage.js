@@ -3,20 +3,10 @@ import styled from 'styled-components';
 import { signUp } from '../firebase/helpers';
 import { useNavigate } from '@reach/router';
 import * as routes from '../constants/routes';
-import { FormButton } from '../components/Buttons';
 import { StyledError, H1 } from '../components/Elements';
-
-const StyledForm = styled.form`
-  color: #4b4f5d;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
+import { FancySignUpForm } from '../components/FancyForms';
 
 const SignUpWrapper = styled.div`
-  display: flex;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,30 +40,15 @@ const SignUpPage = () => {
   return (
     <SignUpWrapper>
       <H1>Sign up</H1>
-      <StyledForm onSubmit={onSubmit}>
-        <input
-          id="email"
-          value={email}
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="email">email</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="password">password</label>
-        <input
-          id="password2"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <label htmlFor="password2">re-enter password</label>
-        <FormButton type="submit">Sign up</FormButton>
-      </StyledForm>
+      <FancySignUpForm
+        email={email}
+        setEmail={setEmail}
+        passoword={password}
+        setPassword={setPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+        onSubmit={onSubmit}
+      />
       {error && <StyledError>{error}</StyledError>}
     </SignUpWrapper>
   );
