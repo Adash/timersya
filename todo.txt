@@ -1,8 +1,7 @@
+- move the specific database functions into Firebase class
 
-- switch from using { db } to using firebase database from React.context
-  eg. move data fetching logig into something similar like the 
-  currently used AuthContext
-  
+- adjust positioning on login and signup screens
+
 - fix the size 'flicker' when switching from time fo options 
 
 - fix bug in safari on ios when the whole up moves up after comment edit
@@ -26,6 +25,12 @@ bigger tasks
 
 - TimeHistory - line 48 : come up with better filtering solution
 
+- error when edit description: 
+  Warning: Can't perform a React state update on an 
+  unmounted component. This is a no-op, but it indicates a memory 
+  leak in your application. To fix, cancel all subscriptions and 
+  asynchronous tasks in a useEffect cleanup function.
+    in Timer (at AuthenticatedApp.js:16)
 
 cheat sheet
 

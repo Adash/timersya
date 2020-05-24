@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from '@reach/router';
 import * as routes from '../constants/routes';
 import styled from 'styled-components';
 import { Button } from '../components/Buttons';
-import { auth } from '../firebase/Firebase';
+import { FirebaseContext } from '../firebase/context';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -46,8 +46,9 @@ const UnauthenticatedHome = () => {
 };
 
 const AuthenticatedHome = () => {
+  const { auth } = useContext(FirebaseContext);
   const signOut = () => {
-    auth()
+    auth
       .signOut()
       .then(() => {
         console.log('signed out');

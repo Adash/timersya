@@ -7,8 +7,7 @@ import {
   AntiButtonOK,
 } from '../components/Buttons/AntiButtons';
 import { NakedInput } from '../components/Elements';
-import { db } from '../firebase/Firebase';
-import { AuthContext } from '../firebase/authentication';
+import { FirebaseContext, AuthContext } from '../firebase/context';
 
 // some Consts for display mode of each element on the times history
 const DISPLAY = {
@@ -216,8 +215,9 @@ const DescriptionInputField = ({
 
 const TimeHistory = ({ removeHistoryItem, editDescription }) => {
   const [firebaseData, setFirebaseData] = useState([]);
-  const { currentUser } = useContext(AuthContext);
   const [displayMode, setDisplayMode] = useState('TIME');
+  const { currentUser } = useContext(AuthContext);
+  const { db } = useContext(FirebaseContext);
 
   useEffect(() => {
     try {
@@ -242,7 +242,7 @@ const TimeHistory = ({ removeHistoryItem, editDescription }) => {
     } catch (error) {
       console.log(`Error happened: ${error}`);
     }
-  }, [currentUser.uid]);
+  }, [currentUser.uid, db]);
 
   return (
     <TimesHistoryWrapper>

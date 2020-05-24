@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { signUp } from '../firebase/helpers';
+import { FirebaseContext } from '../firebase/context';
 import { useNavigate } from '@reach/router';
 import * as routes from '../constants/routes';
-import { StyledError, H1 } from '../components/Elements';
+import { StyledError, H1Gray } from '../components/Elements';
 import { FancySignUpForm } from '../components/FancyForms';
 
 const SignUpWrapper = styled.div`
@@ -14,6 +14,7 @@ const SignUpWrapper = styled.div`
 `;
 
 const SignUpPage = () => {
+  const Firebase = useContext(FirebaseContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +31,7 @@ const SignUpPage = () => {
       setError('Passwords do not match');
       return;
     }
-    signUp(email, password)
+    Firebase.signUp(email, password)
       .then(() => {
         navigate(routes.home);
       })
@@ -39,7 +40,7 @@ const SignUpPage = () => {
 
   return (
     <SignUpWrapper>
-      <H1>Sign up</H1>
+      <H1Gray>Sign up</H1Gray>
       <FancySignUpForm
         email={email}
         setEmail={setEmail}

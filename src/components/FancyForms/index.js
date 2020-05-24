@@ -115,7 +115,6 @@ const StyledEmailInput = ({ email, setEmail }) => (
     type="email"
     name="email"
     placeholder=" "
-    invalidColor="#ff5e5b"
   />
 );
 
@@ -128,7 +127,6 @@ const StyledPasswordInput = ({ password, setPassword }) => (
     type="password"
     name="password"
     placeholder=" "
-    invalidColor="#ff5e5b"
   />
 );
 
@@ -144,7 +142,6 @@ const StyledConfirmPasswordInput = ({
     type="password"
     name="confirm_password"
     placeholder=" "
-    invalidColor="#ff5e5b"
   />
 );
 

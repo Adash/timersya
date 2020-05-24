@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { signIn } from '../firebase/helpers';
+import { FirebaseContext } from '../firebase/context';
 import { Link, useNavigate } from '@reach/router';
 import * as routes from '../constants/routes';
-import { StyledError, H1 } from '../components/Elements';
+import { StyledError, H1Gray } from '../components/Elements';
 import { FancyLoginForm } from '../components/FancyForms';
 
 const LoginWrapper = styled.div`
@@ -14,6 +14,7 @@ const LoginWrapper = styled.div`
 `;
 
 const LoginPage = () => {
+  const Firebase = useContext(FirebaseContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +23,7 @@ const LoginPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(`email: ${email} - password : ${password}`);
-    signIn(email, password)
+    Firebase.signIn(email, password)
       .then(() => {
         navigate(routes.home);
       })
@@ -31,7 +32,7 @@ const LoginPage = () => {
 
   return (
     <LoginWrapper>
-      <H1>Login</H1>
+      <H1Gray>Login</H1Gray>
       {/* <StyledForm onSubmit={onSubmit}>
         <input
           id="email"

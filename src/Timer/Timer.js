@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TimeHistory from './TimeHistory';
 import moment from 'moment';
-import { db } from '../firebase/Firebase';
-import { AuthContext } from '../firebase/authentication';
+import { FirebaseContext, AuthContext } from '../firebase/context';
 
 import {
   TimerButtonReset,
@@ -62,6 +61,7 @@ const Timer = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const { db } = useContext(FirebaseContext);
 
   const startTimer = () => {
     setRunning(true);

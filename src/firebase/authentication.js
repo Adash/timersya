@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { firebaseApp } from './Firebase';
-
-export const AuthContext = React.createContext(null);
+import React, { useState, useEffect, useContext } from 'react';
+import { FirebaseContext, AuthContext } from './context';
 
 const AuthProvider = ({ children }) => {
+  const Firebase = useContext(FirebaseContext);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const userListener = firebaseApp.auth().onAuthStateChanged((authUser) => {
+    console.log('Authentication listener. You should see it only once');
+    const userListener = Firebase.auth.onAuthStateChanged((authUser) => {
       authUser ? setCurrentUser(authUser) : setCurrentUser(null);
     });
     return () => userListener();
-  }, []);
+  }, [Firebase]);
 
   return (
     <AuthContext.Provider value={{ currentUser }}>

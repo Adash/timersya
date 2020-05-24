@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import { AuthContext } from '../firebase/authentication';
+import { AuthContext } from '../firebase/context';
 import LoadingFallback from './LoadingFallback';
 
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
