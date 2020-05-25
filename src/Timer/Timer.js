@@ -61,7 +61,9 @@ const Timer = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const { db } = useContext(FirebaseContext);
+  const { removeHistoryItem, editDescription, saveTime } = useContext(
+    FirebaseContext
+  );
 
   const startTimer = () => {
     setRunning(true);
@@ -88,30 +90,7 @@ const Timer = () => {
     setSeconds(0);
   };
 
-  const removeHistoryItem = (id) => {
-    db.ref(`TimesHistory/${id}`).remove();
-  };
-
-  const editDescription = (id, newDescription) => {
-    // console.log(`description ${newDescription}
-    // id: ${id}`);
-    try {
-      db.ref(`TimesHistory/${id}`)
-        .once('value')
-        .then((snapshot) => {
-          const record = snapshot.val();
-          console.log(`description ${newDescription}`);
-          db.ref(`TimesHistory/${id}`).set({
-            ...record,
-            description: newDescription,
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const saveTime = () => {
+  const onSave = () => {
     if (seconds === 0) {
       return;
     }
@@ -123,11 +102,7 @@ const Timer = () => {
       description: 'OmManiPemeHung',
       user: currentUser.uid,
     };
-    try {
-      db.ref('TimesHistory').push(newTime);
-    } catch (error) {
-      console.log(`Some data fetching error: ${error}`);
-    }
+    saveTime(newTime);
   };
 
   return (
@@ -144,7 +119,7 @@ const Timer = () => {
         ) : (
           <TimerButtonStop onClick={stopTimer}>stop</TimerButtonStop>
         )}
-        <TimerButtonSave onClick={saveTime}>save</TimerButtonSave>
+        <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
       </div>
 
       <TimeHistory

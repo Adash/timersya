@@ -217,11 +217,12 @@ const TimeHistory = ({ removeHistoryItem, editDescription }) => {
   const [firebaseData, setFirebaseData] = useState([]);
   const [displayMode, setDisplayMode] = useState('TIME');
   const { currentUser } = useContext(AuthContext);
-  const { db } = useContext(FirebaseContext);
+  const { timesHistory } = useContext(FirebaseContext);
 
   useEffect(() => {
     try {
-      db.ref('TimesHistory').on('value', (snapshot) => {
+      timesHistory().on('value', (snapshot) => {
+        console.log('Firebase_Datafetch function triggered');
         if (snapshot.val() === null) {
           setFirebaseData([]);
           return;
@@ -237,12 +238,15 @@ const TimeHistory = ({ removeHistoryItem, editDescription }) => {
         console.log(dataArray);
         setFirebaseData(dataArray);
       });
-      // in the return statement below pass an cleanup function
-      return () => {};
+      // cleanup function
+      return () => {
+        console.log('Firebase_Datafetch cleanup function triggered');
+        timesHistory().off();
+      };
     } catch (error) {
       console.log(`Error happened: ${error}`);
     }
-  }, [currentUser.uid, db]);
+  }, [currentUser.uid, timesHistory]);
 
   return (
     <TimesHistoryWrapper>

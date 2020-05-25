@@ -1,4 +1,3 @@
-- move the specific database functions into Firebase class
 
 - adjust positioning on login and signup screens
 

@@ -46,17 +46,8 @@ const UnauthenticatedHome = () => {
 };
 
 const AuthenticatedHome = () => {
-  const { auth } = useContext(FirebaseContext);
-  const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        console.log('signed out');
-      })
-      .catch((error) => {
-        console.log(`something wrong happened. I think ${error}`);
-      });
-  };
+  const { signOut } = useContext(FirebaseContext);
+
   return (
     <HomeWrapper>
       <ButtonLink to={routes.timer}>Timer</ButtonLink>

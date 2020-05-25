@@ -12,8 +12,14 @@ class Firebase {
     console.log(`Firebase initialisation...`);
     this.auth = firebase.auth();
     this.db = firebase.database();
+    this.signOut = this.signOut.bind(this);
+    this.removeHistoryItem = this.removeHistoryItem.bind(this);
+    // investigate why the bind below breaks the system
+    // this.editDescription = this.editDescription.bind(this);
+    this.timesHistory = this.timesHistory.bind(this);
   }
 
+  //# Firebase Authentication
   signIn(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
@@ -22,6 +28,46 @@ class Firebase {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
+  signOut() {
+    console.log('signing out');
+    return this.auth.signOut();
+  }
+
+  // # Firebase Database
+
+  timesHistory() {
+    return this.db.ref('TimesHistory');
+  }
+
+  removeHistoryItem(id) {
+    return this.db.ref(`TimesHistory/${id}`).remove();
+  }
+
+  editDescription = (id, newDescription) => {
+    try {
+      this.db
+        .ref(`TimesHistory/${id}`)
+        .once('value')
+        .then((snapshot) => {
+          const record = snapshot.val();
+          console.log(`description ${newDescription}`);
+          this.db.ref(`TimesHistory/${id}`).set({
+            ...record,
+            description: newDescription,
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  saveTime = (newTime) => {
+    try {
+      this.db.ref('TimesHistory').push(newTime);
+    } catch (error) {
+      console.log(`Some data fetching error: ${error}`);
+    }
+  };
   // userListener = () => {
   //   const currentUser
   //   const unsubscribeUserListener = this.auth.onAuthStateChanged(user=> {
