@@ -61,9 +61,7 @@ const Timer = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timerInterval, setTimerInterval] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const { removeHistoryItem, editDescription, saveTime } = useContext(
-    FirebaseContext
-  );
+  const { saveTime } = useContext(FirebaseContext);
 
   const startTimer = () => {
     setRunning(true);
@@ -122,10 +120,7 @@ const Timer = () => {
         <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
       </div>
 
-      <TimeHistory
-        removeHistoryItem={removeHistoryItem}
-        editDescription={editDescription}
-      />
+      <TimeHistory />
     </TimerWrapper>
   );
 };

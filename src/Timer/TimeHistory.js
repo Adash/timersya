@@ -213,11 +213,13 @@ const DescriptionInputField = ({
   );
 };
 
-const TimeHistory = ({ removeHistoryItem, editDescription }) => {
+const TimeHistory = () => {
   const [firebaseData, setFirebaseData] = useState([]);
   const [displayMode, setDisplayMode] = useState('TIME');
   const { currentUser } = useContext(AuthContext);
-  const { timesHistory } = useContext(FirebaseContext);
+  const { timesHistory, removeHistoryItem, editDescription } = useContext(
+    FirebaseContext
+  );
 
   useEffect(() => {
     try {

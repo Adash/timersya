@@ -1,4 +1,6 @@
 
+# Obscure Bus
+
 - adjust positioning on login and signup screens
 
 - fix the size 'flicker' when switching from time fo options 
@@ -7,22 +9,20 @@
 
 - prevent scroll on mobile devices (in homescreen launch mode)
 
-- implement the app as Progressive Web App
-
-- add 'click again to confirm' onto the reset button
-
-small tasks
+# small tasks
 
 -split home component in two components (unauthenticated and authenticated)
 
 - fix the bux when the sign up (and maybe log in) 
 form is moving up when the error message appears
 
-bigger tasks
+# bigger tasks
+
+- implement the app as Progressive Web App
 
 - refactor and tidy up times history
 
-- TimeHistory - line 48 : come up with better filtering solution
+- TimesHistory - come up with better filtering solution
 
 - error when edit description: 
   Warning: Can't perform a React state update on an 
@@ -31,7 +31,8 @@ bigger tasks
   asynchronous tasks in a useEffect cleanup function.
     in Timer (at AuthenticatedApp.js:16)
 
-cheat sheet
+
+@cheat sheet
 
 # Start a new feature
 git checkout -b new-feature master
