@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledRouter } from '../components/Wrappers';
-import Header from '../Header';
+// import Header from '../Header';
+import Navbar from '../NavbarDropdown/Navbar';
 import { AuthenticatedHome } from '../Home/';
 import Timer from '../Timer/Timer';
 import { MainWrapper } from '../components/Wrappers';
@@ -9,7 +10,7 @@ import 'styled-components/macro';
 
 const AuthenticatedApp = () => (
   <>
-    <Header />
+    <Navbar />
     <MainWrapper>
       <StyledRouter>
         <AuthenticatedHome path={routes.home} />

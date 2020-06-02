@@ -11,6 +11,8 @@
 
 # small tasks
 
+- add redirect to paths which should be protected when not logged in
+
 -split home component in two components (unauthenticated and authenticated)
 
 - fix the bux when the sign up (and maybe log in) 
