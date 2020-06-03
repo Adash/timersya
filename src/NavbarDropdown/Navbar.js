@@ -46,7 +46,8 @@ const StyledNav = styled.div`
   padding: 0 1rem;
   border-bottom: var(--border);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
   ul {
     list-style: none;
@@ -78,7 +79,6 @@ const StyledNav = styled.div`
 `;
 
 const StyledUl = styled.ul`
-  margin-left: auto;
   max-width: 100%;
   height: 100%;
   display: flex;
@@ -93,13 +93,14 @@ const StyledNavItem = styled.li`
 `;
 
 const IconButton = styled.span`
-  --button-size: calc(var(--nav-size) * 0.5);
+  /* --button-size: calc(var(--nav-size) * 0.5);
   width: var(--button-size);
-  height: var(--button-size);
+  height: var(--button-size); */
   background-color: var(--bg-accent);
-  border-radius: 50%;
+  border-radius: 4px 4px 4px 4px;
+  /* border-radius: 50%; */
   padding: 5px;
-  margin: 2px;
+  /* margin: 2px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,20 +119,27 @@ const IconButton = styled.span`
 
 const StyledDropdownMenu = styled.div`
   position: absolute;
-  width: 300px;
-  right: 15px;
+  width: 290px;
+  right: 10px;
   background-color: var(--bg);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: 1rem;
+  padding: 0.8rem;
   overflow: hidden;
   z-index: -1;
   top: 26px;
 `;
 
-const StyledMenuItem = styled.a`
+const StyledDropdownItem = styled.button`
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  text-decoration: none;
+  width: 100%;
+  margin: 0;
   height: 50px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-radius: var(--border-radius);
   transition: background var(--speed);
@@ -152,27 +160,30 @@ const StyledMenuItem = styled.a`
 
 const IconRight = styled.span`
   fill: var(--text-color);
-  margin-left: auto;
-  --button-size: calc(var(--nav-size) * 0.2);
+  /* margin-left: auto; */
+  --button-size: calc(var(--nav-size) * 0.7);
   width: var(--button-size);
   height: var(--button-size);
   border-radius: 50%;
   transition: filter 300ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
 `;
 
 const DropdownItem = (props) => (
-  <StyledMenuItem
+  <StyledDropdownItem
     href="#"
     onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}
   >
     {props.leftIcon && <IconButton>{props.leftIcon}</IconButton>}
     {props.children}
     {props.rightIcon && <IconRight>{props.rightIcon}</IconRight>}
-  </StyledMenuItem>
+  </StyledDropdownItem>
 );
 
-const SimpleDropdownMenu = () => {
-  const { currentUser } = useContext(AuthContext);
+const SimpleDropdownMenu = ({ currentUser }) => {
   return (
     <StyledDropdownMenu>
       <div
@@ -180,7 +191,9 @@ const SimpleDropdownMenu = () => {
           width: 100%;
         `}
       >
-        <DropdownItem>Logged as: {currentUser.email}</DropdownItem>
+        <DropdownItem>
+          Logged as: {currentUser && currentUser.email}
+        </DropdownItem>
         <DropdownItem
           leftIcon={<CogIcon />}
           rightIcon={<ChevronIcon />}
@@ -189,11 +202,18 @@ const SimpleDropdownMenu = () => {
           Settings
         </DropdownItem>
         <DropdownItem
-          leftIcon="🦧"
+          leftIcon={<BellIcon />}
           rightIcon={<ChevronIcon />}
-          goToMenu="animals"
+          goToMenu="stats"
         >
-          Animals
+          Stats
+        </DropdownItem>
+        <DropdownItem
+          leftIcon={<BoltIcon />}
+          rightIcon={<ChevronIcon />}
+          goToMenu="theme"
+        >
+          Theme
         </DropdownItem>
       </div>
     </StyledDropdownMenu>
@@ -230,7 +250,7 @@ const Logo = () => (
         font-size: 0.5rem;
       `}
     >
-      v0.7.5
+      v0.7.9
     </span>
   </Link>
 );
@@ -256,15 +276,34 @@ const NavItem = ({ icon, children }) => {
   );
 };
 
+const NavPlaceholder = () => (
+  <div
+    css={`
+      width: 31.2px;
+    `}
+  >
+    {/* this is here to force proper slignment with flexbox
+          it's really a hack to fix it in the future
+          */}
+  </div>
+);
+
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <StackingContext>
       <StyledNav>
+        <NavPlaceholder />
         <Logo />
+        {/* the StyledUl is here in order to allow more menu icons for desktop view */}
         <StyledUl>
-          <NavItem icon={<CaretIcon />}>
-            <SimpleDropdownMenu />
-          </NavItem>
+          {currentUser ? (
+            <NavItem icon={<CaretIcon />}>
+              <SimpleDropdownMenu currentUser={currentUser} />
+            </NavItem>
+          ) : (
+            <NavPlaceholder />
+          )}
         </StyledUl>
       </StyledNav>
     </StackingContext>

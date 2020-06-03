@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header';
+import Navbar from '../NavbarDropdown/Navbar';
 import { UnauthenticatedHome } from '../Home/';
 import LoginPage from '../Login/LoginPage';
 import SignUpPage from '../SignUp/SignUpPage';
@@ -9,7 +9,7 @@ import * as routes from '../constants/routes';
 
 const UnauthenticatedApp = () => (
   <>
-    <Header />
+    <Navbar />
     <MainWrapper>
       <StyledRouter>
         <UnauthenticatedHome path={routes.home} />

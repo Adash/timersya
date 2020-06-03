@@ -18,15 +18,17 @@
 - fix the bux when the sign up (and maybe log in) 
 form is moving up when the error message appears
 
+- add option for editing date
+
+- add option for editing time
+
 # bigger tasks
+
+- add themes
 
 - add medium queries to add different display format to the desktop view
 
-- add expandable menu
-
 - implement the app as Progressive Web App
-
-- refactor and tidy up times history
 
 - TimesHistory - come up with better filtering solution
 
@@ -36,19 +38,3 @@ form is moving up when the error message appears
   leak in your application. To fix, cancel all subscriptions and 
   asynchronous tasks in a useEffect cleanup function.
     in Timer (at AuthenticatedApp.js:16)
-
-
-@cheat sheet
-
-# Start a new feature
-git checkout -b new-feature master
-# Edit some files
-git add <file>
-git commit -m "Start a feature"
-# Edit some files
-git add <file>
-git commit -m "Finish a feature"
-# Merge in the new-feature branch
-git checkout master
-git merge new-feature
-git branch -d new-feature
