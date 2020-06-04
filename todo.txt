@@ -5,15 +5,9 @@
 
 - fix the size 'flicker' when switching from time fo options 
 
-- fix bug in safari on ios when the whole up moves up after comment edit
-
 - prevent scroll on mobile devices (in homescreen launch mode)
 
 # small tasks
-
-- remove firebase cache from git
-
-- try 'edit on click' on titles instead of using a button
 
 - add redirect to paths which should be protected when not logged in
 
@@ -36,7 +30,7 @@ form is moving up when the error message appears
 
 - TimesHistory - come up with better filtering solution
 
-- error when edit description: 
+?? error when edit description: 
   Warning: Can't perform a React state update on an 
   unmounted component. This is a no-op, but it indicates a memory 
   leak in your application. To fix, cancel all subscriptions and 
