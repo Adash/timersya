@@ -3,7 +3,6 @@ import 'styled-components/macro';
 import styled from 'styled-components';
 import {
   AntiButtonDelete,
-  AntiButtonEdit,
   AntiButtonOK,
 } from '../components/Buttons/AntiButtons';
 import { NakedInput } from '../components/Elements';
@@ -22,8 +21,7 @@ const TimesHistoryWrapper = styled.div`
   overflow-y: hidden;
   padding-inline-start: 0px;
   margin-top: 10px;
-  min-width: 360px;
-  max-width: 460px;
+  width: 380px;
   padding-left: 5px;
   padding-right: 5px;
   display: flex;
@@ -33,7 +31,7 @@ const TimesHistoryWrapper = styled.div`
 `;
 
 const TimesHistoryListWrapper = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-right: 10px;
   width: 100%;
 `;
@@ -122,20 +120,60 @@ const Record = ({
       return (
         // in the future extract those into separate components
         <RecordWrapper>
-          <span
+          <div
             css={`
-              color: #292e30;
+              text-align: right;
+              width: 70px;
             `}
           >
-            {hours}:{minutes}:{seconds}
-          </span>
-          <span>{description}</span>
+            <span
+              css={`
+                color: #067bc2;
+              `}
+            >
+              <span>{hours}:</span>
+              <span>{minutes}:</span>
+              <span>{seconds}</span>
+            </span>
+          </div>
+          {showEditField ? (
+            <DescriptionInputField
+              id={id}
+              description={description}
+              editDescription={editDescription}
+              setShowEditField={setShowEditField}
+            />
+          ) : (
+            <div
+              onClick={() => setShowEditField(true)}
+              css={`
+                flex: 1 1 auto;
+                text-align: right;
+              `}
+            >
+              {description}
+            </div>
+          )}
         </RecordWrapper>
       );
     case DISPLAY.DATE:
       return (
         <RecordWrapper>
-          <span>{date}</span>
+          <span
+            css={`
+              color: #3d5a80;
+            `}
+          >
+            {date}
+          </span>
+          <div
+            css={`
+              flex: 1 1 auto;
+              text-align: right;
+            `}
+          >
+            {description}
+          </div>
         </RecordWrapper>
       );
     case DISPLAY.OPTIONS:
@@ -151,35 +189,15 @@ const Record = ({
           >
             remove
           </AntiButtonDelete>
-          {showEditField ? (
-            <DescriptionInputField
-              id={id}
-              description={description}
-              editDescription={editDescription}
-              setShowEditField={setShowEditField}
-            />
-          ) : (
-            <>
-              <AntiButtonEdit
-                onClick={() => {
-                  setShowEditField(true);
-                }}
-                css={`
-                  flex: 0 0 auto;
-                `}
-              >
-                edit
-              </AntiButtonEdit>
-              <div
-                css={`
-                  flex: 1 1 auto;
-                  text-align: right;
-                `}
-              >
-                {description}
-              </div>
-            </>
-          )}
+
+          <div
+            css={`
+              flex: 1 1 auto;
+              text-align: right;
+            `}
+          >
+            {description}
+          </div>
         </RecordOptionsWrapper>
       );
     default:

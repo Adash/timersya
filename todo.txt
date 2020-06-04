@@ -11,6 +11,10 @@
 
 # small tasks
 
+- remove firebase cache from git
+
+- try 'edit on click' on titles instead of using a button
+
 - add redirect to paths which should be protected when not logged in
 
 -split home component in two components (unauthenticated and authenticated)

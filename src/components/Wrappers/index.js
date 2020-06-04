@@ -13,7 +13,7 @@ const StyledRouter = styled(Router)`
 `;
 
 const MainWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 40px;
   bottom: 0;
   width: 100%;
