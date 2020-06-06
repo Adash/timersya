@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../firebase/context';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import * as routes from '../constants/routes';
 
 import styled from 'styled-components';
@@ -8,10 +8,8 @@ import 'styled-components/macro';
 import { CSSTransition } from 'react-transition-group';
 
 import { ReactComponent as BellIcon } from './icons/bell.svg';
-import { ReactComponent as MessengerIcon } from './icons/messenger.svg';
 import { ReactComponent as CaretIcon } from './icons/caret.svg';
 import { ReactComponent as PlusIcon } from './icons/plus.svg';
-import { ReactComponent as CogIcon } from './icons/cog.svg';
 import { ReactComponent as ChevronIcon } from './icons/chevron.svg';
 import { ReactComponent as ArrowIcon } from './icons/arrow.svg';
 import { ReactComponent as BoltIcon } from './icons/bolt.svg';
@@ -67,14 +65,45 @@ const StyledNav = styled.div`
   }
   .drop-enter-active {
     transform: translateY(0%);
-    transition: transform 400ms;
+    transition: transform var(--speed);
   }
   .drop-exit {
     position: absolute;
   }
   .drop-exit-active {
     transform: translateY(-110%);
-    transition: transform 400ms;
+    transition: transform var(--speed);
+  }
+
+  /* Sub-menu transition classes  */
+  .menu-primary-enter {
+    position: absolute;
+    transform: translateX(-110%);
+  }
+  .menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+  }
+  .menu-primary-exit {
+    position: absolute;
+  }
+  .menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all var(--speed) ease;
+  }
+
+  .menu-secondary-enter {
+    transform: translateX(110%);
+  }
+  .menu-secondary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+  }
+  /* .menu-secondary-exit {
+} */
+  .menu-secondary-exit-active {
+    transform: translateX(110%);
+    transition: all var(--speed) ease;
   }
 `;
 
@@ -118,6 +147,7 @@ const IconButton = styled.span`
 `;
 
 const StyledDropdownMenu = styled.div`
+  box-sizing: content-box;
   position: absolute;
   width: 290px;
   right: 10px;
@@ -128,6 +158,7 @@ const StyledDropdownMenu = styled.div`
   overflow: hidden;
   z-index: -1;
   top: 26px;
+  transition: height 300ms;
 `;
 
 const StyledDropdownItem = styled.button`
@@ -172,50 +203,136 @@ const IconRight = styled.span`
   padding: 8px;
 `;
 
+const SubMenuWrapper = styled.div`
+  position: absolute;
+  width: 93%;
+  /* this fixes strange 'jitter' up on the element when transform */
+  transform: translateX(0px);
+`;
+
 const DropdownItem = (props) => (
-  <StyledDropdownItem
-    href="#"
-    onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}
-  >
+  <StyledDropdownItem onClick={props.handleClick}>
     {props.leftIcon && <IconButton>{props.leftIcon}</IconButton>}
     {props.children}
     {props.rightIcon && <IconRight>{props.rightIcon}</IconRight>}
   </StyledDropdownItem>
 );
 
+const ThemeMenu = ({ backToMain }) => (
+  <>
+    <DropdownItem
+      leftIcon={<ArrowIcon />}
+      handleClick={backToMain}
+      rightIcon={' '}
+    ></DropdownItem>
+    <DropdownItem>Theme Menu</DropdownItem>
+    <DropdownItem>switch here</DropdownItem>
+  </>
+);
+
+const AboutMenu = ({ backToMain }) => (
+  <>
+    <DropdownItem
+      leftIcon={<ArrowIcon />}
+      handleClick={backToMain}
+      rightIcon={' '}
+    ></DropdownItem>
+    <DropdownItem>About Menu</DropdownItem>
+    <DropdownItem>Description here</DropdownItem>
+  </>
+);
+
 const SimpleDropdownMenu = ({ currentUser }) => {
+  const [activeMenu, setActiveMenu] = useState('main');
+  const [menuHeight, setMenuHeight] = useState(null);
+  const dropdownRef = useRef(null);
+  const mainRef = useRef(null);
+  const themeRef = useRef(null);
+  const aboutRef = useRef(null);
+
+  useEffect(() => {
+    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
+  }, []);
+
+  const backToMain = () => {
+    setActiveMenu('main');
+  };
+
+  const calcHeight = (node) => {
+    console.log(node);
+    const height = node.offsetHeight;
+    setMenuHeight(height);
+  };
+
   return (
-    <StyledDropdownMenu>
-      <div
-        css={`
-          width: 100%;
-        `}
+    <StyledDropdownMenu style={{ height: menuHeight }} ref={dropdownRef}>
+      <CSSTransition
+        in={activeMenu === 'main'}
+        timeout={500}
+        unmountOnExit
+        classNames="menu-primary"
+        onEnter={() => calcHeight(mainRef.current)}
+        nodeRef={mainRef}
       >
-        <DropdownItem>
-          Logged as: {currentUser && currentUser.email}
-        </DropdownItem>
-        <DropdownItem
-          leftIcon={<CogIcon />}
-          rightIcon={<ChevronIcon />}
-          goToMenu="settings"
-        >
-          Settings
-        </DropdownItem>
-        <DropdownItem
-          leftIcon={<BellIcon />}
-          rightIcon={<ChevronIcon />}
-          goToMenu="stats"
-        >
-          Stats
-        </DropdownItem>
-        <DropdownItem
-          leftIcon={<BoltIcon />}
-          rightIcon={<ChevronIcon />}
-          goToMenu="theme"
-        >
-          Theme
-        </DropdownItem>
-      </div>
+        <SubMenuWrapper ref={mainRef}>
+          <DropdownItem>
+            Logged as: {currentUser && currentUser.email}
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<BellIcon />}
+            setActiveMenu
+            rightIcon={' '}
+            handleClick={() => navigate(routes.stats)}
+          >
+            Stats
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}
+            handleClick={() => setActiveMenu('theme')}
+          >
+            Theme
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<PlusIcon />}
+            rightIcon={<ChevronIcon />}
+            handleClick={() => setActiveMenu('about')}
+          >
+            About
+          </DropdownItem>
+          {/* <DropdownItem
+            leftIcon={<CogIcon />}
+            rightIcon={<ChevronIcon />}
+            handleClick={() => setActiveMenu('settings')}
+          >
+            Settings
+          </DropdownItem> */}
+        </SubMenuWrapper>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === 'theme'}
+        timeout={500}
+        unmountOnExit
+        classNames="menu-secondary"
+        onEnter={() => calcHeight(themeRef.current)}
+        nodeRef={themeRef}
+      >
+        <SubMenuWrapper ref={themeRef}>
+          <ThemeMenu backToMain={backToMain} />
+        </SubMenuWrapper>
+      </CSSTransition>
+      <CSSTransition
+        in={activeMenu === 'about'}
+        timeout={500}
+        unmountOnExit
+        classNames="menu-secondary"
+        onEnter={() => calcHeight(aboutRef.current)}
+        nodeRef={aboutRef}
+      >
+        <SubMenuWrapper ref={aboutRef}>
+          <AboutMenu backToMain={backToMain} />
+        </SubMenuWrapper>
+      </CSSTransition>
     </StyledDropdownMenu>
   );
 };
@@ -250,7 +367,7 @@ const Logo = () => (
         font-size: 0.5rem;
       `}
     >
-      v0.7.9.2
+      v0.7.9.3
     </span>
   </Link>
 );

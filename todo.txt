@@ -1,13 +1,23 @@
 
+# New Exciting Task!
+ * Add Stats Page with two types of stats
+  - breakdown by description
+  - breakdown by day (date)
+
+ * both will display graph showing the time spent 
+   per day or per taks over days
+##
 # Obscure Bus
+
+- figure out why the transformX moves the item few pixels on Y axis;
 
 - adjust positioning on login and signup screens
 
 - fix the size 'flicker' when switching from time fo options 
 
-- prevent scroll on mobile devices (in homescreen launch mode)
-
 # small tasks
+
+- make the dropdown menu close after clicking outside of it
 
 - add redirect to paths which should be protected when not logged in
 
