@@ -34,7 +34,7 @@ const StyledNav = styled.div`
   --bg-accent: #05639e;
   --text-color: #ebe9e9;
   --nav-size: 39px;
-  --border: 1px solid #b8c2c6;
+  --border: 1px solid #05639e;
   --border-radius: 8px;
   --speed: 500ms;
 
@@ -155,6 +155,7 @@ const StyledDropdownMenu = styled.div`
   border: var(--border);
   border-radius: var(--border-radius);
   padding: 0.8rem;
+  font-size: 1.25em;
   overflow: hidden;
   z-index: -1;
   top: 26px;
@@ -204,10 +205,10 @@ const IconRight = styled.span`
 `;
 
 const SubMenuWrapper = styled.div`
+  /* we need 'absolute' for the sum-menu transitions to work properly, but because of that
+  we have to set width lesser than 100%  */
   position: absolute;
   width: 93%;
-  /* this fixes strange 'jitter' up on the element when transform */
-  transform: translateX(0px);
 `;
 
 const DropdownItem = (props) => (
@@ -379,14 +380,7 @@ const NavItem = ({ icon, children }) => {
       <IconButton href="#" onClick={() => setOpen(!open)}>
         {icon}
       </IconButton>
-      <CSSTransition
-        in={open}
-        timeout={400}
-        unmountOnExit
-        classNames="drop"
-        // try to use nodeRef with this implementation
-        // nodeRef={mainRef}
-      >
+      <CSSTransition in={open} timeout={400} unmountOnExit classNames="drop">
         {children}
       </CSSTransition>
     </StyledNavItem>
