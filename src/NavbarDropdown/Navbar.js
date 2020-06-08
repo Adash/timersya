@@ -7,6 +7,11 @@ import styled from 'styled-components';
 import 'styled-components/macro';
 import { CSSTransition } from 'react-transition-group';
 
+import ToggleTheme from '../components/Buttons/ThemeToggle';
+import { ReactComponent as Sun } from './icons/sun.svg';
+import { ReactComponent as Moon } from './icons/moon.svg';
+import { ThemeContext } from '../App/App';
+
 import { ReactComponent as BellIcon } from './icons/bell.svg';
 import { ReactComponent as CaretIcon } from './icons/caret.svg';
 import { ReactComponent as PlusIcon } from './icons/plus.svg';
@@ -30,13 +35,13 @@ const StyledNav = styled.div`
 
   /* height: 100vh; */
 
-  --bg: #067bc2;
-  --bg-accent: #05639e;
-  --text-color: #ebe9e9;
-  --nav-size: 39px;
-  --border: 1px solid #05639e;
+  --bg: ${(props) => props.theme.navbar_bg || '#067bc2'};
+  --bg-accent: ${(props) => props.theme.navbar_bg_accent || '#05639e'};
+  --text-color: ${(props) => props.theme.navbar_text_color || '#ebe9e9'};
+  --nav-size: ${(props) => props.theme.navbar_nav_size || '39px'};
+  --border: 1px solid var(--bg-accent);
   --border-radius: 8px;
-  --speed: 500ms;
+  --speed: ${(props) => props.theme.speed || '500ms'};
 
   width: 100%;
   height: var(--nav-size);
@@ -158,7 +163,8 @@ const StyledDropdownMenu = styled.div`
   font-size: 1.25em;
   overflow: hidden;
   z-index: -1;
-  top: 26px;
+  /* adjust a bit up later */
+  top: calc(var(--nav-size));
   transition: height 300ms;
 `;
 
@@ -219,17 +225,26 @@ const DropdownItem = (props) => (
   </StyledDropdownItem>
 );
 
-const ThemeMenu = ({ backToMain }) => (
-  <>
-    <DropdownItem
-      leftIcon={<ArrowIcon />}
-      handleClick={backToMain}
-      rightIcon={' '}
-    ></DropdownItem>
-    <DropdownItem>Theme Menu</DropdownItem>
-    <DropdownItem>switch here</DropdownItem>
-  </>
-);
+const ThemeMenu = ({ backToMain }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
+  return (
+    <>
+      <DropdownItem
+        leftIcon={<ArrowIcon />}
+        handleClick={backToMain}
+        rightIcon={' '}
+      >
+        Toggle Theme
+      </DropdownItem>
+      {/* <DropdownItem leftIcon={'Toggle Theme'}></DropdownItem> */}
+      <DropdownItem>
+        <ToggleTheme lightTheme={theme} onClick={() => setTheme(!theme)}>
+          <Sun /> <Moon />
+        </ToggleTheme>
+      </DropdownItem>
+    </>
+  );
+};
 
 const AboutMenu = ({ backToMain }) => (
   <>
@@ -342,16 +357,14 @@ const Logo = () => (
   <Link
     to={routes.home}
     css={`
-      color: #ebe9e9;
+      color: ${(props) => props.theme.logo_color || '#ebe9e9'};
       text-decoration: none;
       &:hover {
         text-decoration: none;
-        color: #fbfbfb;
+        color: ${(props) => props.theme.logo_color_hover || '#fbfbfb'};
       }
       &:active {
-        color: #0b4f6c;
-        text-shadow: 0 0 20px #fff, 0 0 30px #77cae7, 0 0 40px #77cae7,
-          0 0 50px #77cae7, 0 0 60px #77cae7, 0 0 70px #77cae7, 0 0 80px #77cae7;
+        color: ${(props) => props.theme.logo_color_active || '#0b4f6c'};
       }
     `}
   >

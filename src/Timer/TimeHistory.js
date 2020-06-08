@@ -17,6 +17,12 @@ const DISPLAY = {
 //#
 // Styles
 const TimesHistoryWrapper = styled.div`
+  --btn-options: ${(props) => props.theme.btn_options || '#067bc2'}
+  --btn-options-pressed: ${(props) =>
+    props.theme.btn_options_pressed || '#fde74c'}
+  --btn-options-text: ${(props) => props.theme.btn_options_text || '#ebe9e9'}
+  --btn-options-text-pressed: ${(props) =>
+    props.theme.btn_options_text_pressed || '#550e04'}
   flex: 0 0 68%;
   overflow-y: hidden;
   padding-inline-start: 0px;
@@ -45,8 +51,22 @@ const StyledButtonBar = styled.div`
 `;
 
 const OptionsButton = styled.button`
-  background-color: ${(props) => (props.pressed ? '#fde74c' : '#067bc2')};
-  color: ${(props) => (props.pressed ? '#550e04' : '#ebe9e9')};
+  background-color: ${({
+    pressed,
+    theme: {
+      btn_options: {
+        color: { base, active },
+      },
+    },
+  }) => (pressed ? active : base)};
+  color: ${({
+    pressed,
+    theme: {
+      btn_options: {
+        color: { text, text_active },
+      },
+    },
+  }) => (pressed ? text_active : text)};
   border: none;
   border-radius: 1px 1px 1px 1px;
   padding: 6px 10px 6px 10px;
@@ -128,7 +148,8 @@ const Record = ({
           >
             <span
               css={`
-                color: #067bc2;
+                color: ${(props) =>
+                  props.theme.time_history_color || '#067bc2'};
               `}
             >
               <span>{hours}:</span>

@@ -13,16 +13,16 @@ const AntiButton = styled.button`
 `;
 
 export const AntiButtonDelete = styled(AntiButton)`
-  color: #ee6c4d;
+  color: ${(props) => props.theme.antibutton_delete_color || '#ee6c4d'};
 `;
 
 export const AntiButtonEdit = styled(AntiButton)`
-  color: #3da5d9;
+  color: ${(props) => props.theme.antibutton_edit_color || '#3da5d9'};
   margin-left: 25px;
 `;
 
 export const AntiButtonOK = styled(AntiButton)`
-  color: #d2ba3f;
+  color: ${(props) => props.theme.antibutton_ok_color || '#d2ba3f'};
 `;
 
 export default AntiButton;

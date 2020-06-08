@@ -13,6 +13,7 @@ const StyledRouter = styled(Router)`
 `;
 
 const MainWrapper = styled.div`
+  background-color: ${(props) => props.theme.background_color || 'white'};
   position: fixed;
   top: 40px;
   bottom: 0;

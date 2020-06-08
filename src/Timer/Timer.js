@@ -27,9 +27,9 @@ const TimerDisplayWrapper = styled.div`
   text-align: center;
   /* margin-top: 1.5rem; */
   margin-bottom: 0rem;
-  font-weight: bold;
+  font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
   font-size: 4.5rem;
-  color: #292e30;
+  color: ${(props) => props.theme.timer_color || '#292e30'};
   display: flex;
   justify-content: flex-start;
 `;
