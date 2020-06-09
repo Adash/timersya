@@ -210,6 +210,14 @@ const IconRight = styled.span`
   padding: 8px;
 `;
 
+const DropdownTextArea = styled.div`
+  background-color: transparent;
+  color: var(--text-color);
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+`;
+
 const SubMenuWrapper = styled.div`
   /* we need 'absolute' for the sum-menu transitions to work properly, but because of that
   we have to set width lesser than 100%  */
@@ -237,11 +245,11 @@ const ThemeMenu = ({ backToMain }) => {
         Toggle Theme
       </DropdownItem>
       {/* <DropdownItem leftIcon={'Toggle Theme'}></DropdownItem> */}
-      <DropdownItem>
+      <DropdownTextArea>
         <ToggleTheme lightTheme={theme} onClick={() => setTheme(!theme)}>
           <Sun /> <Moon />
         </ToggleTheme>
-      </DropdownItem>
+      </DropdownTextArea>
     </>
   );
 };
@@ -252,9 +260,19 @@ const AboutMenu = ({ backToMain }) => (
       leftIcon={<ArrowIcon />}
       handleClick={backToMain}
       rightIcon={' '}
-    ></DropdownItem>
-    <DropdownItem>About Menu</DropdownItem>
-    <DropdownItem>Description here</DropdownItem>
+    >
+      About
+    </DropdownItem>
+    <DropdownTextArea>Made by Adam Kusber</DropdownTextArea>
+    <DropdownTextArea>
+      Icons made by{' '}
+      <a
+        href="https://www.flaticon.com/authors/smalllikeart"
+        title="smalllikeart"
+      >
+        smalllikeart
+      </a>
+    </DropdownTextArea>
   </>
 );
 
@@ -291,9 +309,9 @@ const SimpleDropdownMenu = ({ currentUser }) => {
         nodeRef={mainRef}
       >
         <SubMenuWrapper ref={mainRef}>
-          <DropdownItem>
+          <DropdownTextArea>
             Logged as: {currentUser && currentUser.email}
-          </DropdownItem>
+          </DropdownTextArea>
           <DropdownItem
             leftIcon={<BellIcon />}
             setActiveMenu
@@ -381,7 +399,7 @@ const Logo = () => (
         font-size: 0.5rem;
       `}
     >
-      v0.7.9.3
+      v0.8.0.0
     </span>
   </Link>
 );
@@ -406,8 +424,8 @@ const NavPlaceholder = () => (
       width: 31.2px;
     `}
   >
-    {/* this is here to force proper slignment with flexbox
-          it's really a hack to fix it in the future
+    {/* this is here to force proper alignment with flexbox
+          it's really a hack to be fixed it in the future
           */}
   </div>
 );

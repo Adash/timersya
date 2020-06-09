@@ -1,6 +1,4 @@
 import React, { useState, Suspense, useContext } from 'react';
-// import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
 import { AuthContext } from '../firebase/context';
 import LoadingFallback from './LoadingFallback';
 import Theme from './Theme';
