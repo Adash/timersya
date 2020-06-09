@@ -1,17 +1,19 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { AuthContext } from '../firebase/context';
-import { Link, navigate } from '@reach/router';
+import { navigate } from '@reach/router';
 import * as routes from '../constants/routes';
 
 import styled from 'styled-components';
 import 'styled-components/macro';
 import { CSSTransition } from 'react-transition-group';
 
+import Logo from './Logo';
 import ToggleTheme from '../components/Buttons/ThemeToggle';
-import { ReactComponent as Sun } from './icons/sun.svg';
-import { ReactComponent as Moon } from './icons/moon.svg';
+
+import { AuthContext } from '../firebase/context';
 import { ThemeContext } from '../App/App';
 
+import { ReactComponent as Sun } from './icons/sun.svg';
+import { ReactComponent as Moon } from './icons/moon.svg';
 import { ReactComponent as BellIcon } from './icons/bell.svg';
 import { ReactComponent as CaretIcon } from './icons/caret.svg';
 import { ReactComponent as PlusIcon } from './icons/plus.svg';
@@ -30,19 +32,6 @@ const StackingContext = styled.div`
 
 const StyledNav = styled.div`
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* height: 100vh; */
-
-  --bg: ${(props) => props.theme.navbar_bg || '#067bc2'};
-  --bg-accent: ${(props) => props.theme.navbar_bg_accent || '#05639e'};
-  --text-color: ${(props) => props.theme.navbar_text_color || '#ebe9e9'};
-  --nav-size: ${(props) => props.theme.navbar_nav_size || '39px'};
-  --border: 1px solid var(--bg-accent);
-  --border-radius: 8px;
-  --speed: ${(props) => props.theme.speed || '500ms'};
-
   width: 100%;
   height: var(--nav-size);
   background-color: var(--bg);
@@ -60,7 +49,6 @@ const StyledNav = styled.div`
 
   a {
     color: var(--text-color);
-    text-decoration: none;
   }
 
   /* Slide from the top */
@@ -127,14 +115,9 @@ const StyledNavItem = styled.li`
 `;
 
 const IconButton = styled.span`
-  /* --button-size: calc(var(--nav-size) * 0.5);
-  width: var(--button-size);
-  height: var(--button-size); */
   background-color: var(--bg-accent);
   border-radius: 4px 4px 4px 4px;
-  /* border-radius: 50%; */
   padding: 5px;
-  /* margin: 2px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,7 +181,6 @@ const StyledDropdownItem = styled.button`
 
 const IconRight = styled.span`
   fill: var(--text-color);
-  /* margin-left: auto; */
   --button-size: calc(var(--nav-size) * 0.7);
   width: var(--button-size);
   height: var(--button-size);
@@ -244,7 +226,6 @@ const ThemeMenu = ({ backToMain }) => {
       >
         Toggle Theme
       </DropdownItem>
-      {/* <DropdownItem leftIcon={'Toggle Theme'}></DropdownItem> */}
       <DropdownTextArea>
         <ToggleTheme lightTheme={theme} onClick={() => setTheme(!theme)}>
           <Sun /> <Moon />
@@ -334,13 +315,6 @@ const SimpleDropdownMenu = ({ currentUser }) => {
           >
             About
           </DropdownItem>
-          {/* <DropdownItem
-            leftIcon={<CogIcon />}
-            rightIcon={<ChevronIcon />}
-            handleClick={() => setActiveMenu('settings')}
-          >
-            Settings
-          </DropdownItem> */}
         </SubMenuWrapper>
       </CSSTransition>
       <CSSTransition
@@ -370,39 +344,6 @@ const SimpleDropdownMenu = ({ currentUser }) => {
     </StyledDropdownMenu>
   );
 };
-
-const Logo = () => (
-  <Link
-    to={routes.home}
-    css={`
-      color: ${(props) => props.theme.logo_color || '#ebe9e9'};
-      text-decoration: none;
-      &:hover {
-        text-decoration: none;
-        color: ${(props) => props.theme.logo_color_hover || '#fbfbfb'};
-      }
-      &:active {
-        color: ${(props) => props.theme.logo_color_active || '#0b4f6c'};
-      }
-    `}
-  >
-    <span
-      css={`
-        font-size: 1.5rem;
-        font-weight: bold;
-      `}
-    >
-      T i m e r s y a
-    </span>
-    <span
-      css={`
-        font-size: 0.5rem;
-      `}
-    >
-      v0.8.0.0
-    </span>
-  </Link>
-);
 
 const NavItem = ({ icon, children }) => {
   const [open, setOpen] = useState(false);

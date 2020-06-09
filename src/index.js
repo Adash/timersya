@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { GlobalStyle } from './GlobalStyle';
+
 import App from './App/App';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseProvider } from './firebase/Firebase';
@@ -8,16 +8,13 @@ import { FirebaseProvider } from './firebase/Firebase';
 import AuthProvider from './firebase/authentication';
 
 ReactDOM.render(
-  <>
-    <GlobalStyle />
-    <FirebaseProvider>
-      <AuthProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </AuthProvider>
-    </FirebaseProvider>
-  </>,
+  <FirebaseProvider>
+    <AuthProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </AuthProvider>
+  </FirebaseProvider>,
   document.getElementById('root')
 );
 

@@ -220,12 +220,6 @@ template {
   display: none;
 }
 
-/* Global Styles */
-
-body {
-  height: 100vh;
-}
-
 /* Bootstrap's resets and adjustments */
 
 :root {
@@ -260,19 +254,6 @@ main,
 nav,
 section {
   display: block;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
 }
 
 [tabindex='-1']:focus:not(:focus-visible) {
@@ -321,5 +302,28 @@ a:not([href]):hover {
   text-decoration: none;
 }
 
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+
+  /* Global variables */
+
+  --bg: ${(props) => props.theme.navbar_bg || '#067bc2'};
+  --bg-accent: ${(props) => props.theme.navbar_bg_accent || '#05639e'};
+  --text-color: ${(props) => props.theme.navbar_text_color || '#ebe9e9'};
+  --nav-size: ${(props) => props.theme.navbar_nav_size || '39px'};
+  --border: 1px solid var(--bg-accent);
+  --border-radius: 8px;
+  --speed: ${(props) => props.theme.speed || '500ms'};
+}
 
 `;

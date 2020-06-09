@@ -1,4 +1,5 @@
 import React, { useState, Suspense, useContext } from 'react';
+import { GlobalStyle } from '../GlobalStyle';
 import { AuthContext } from '../firebase/context';
 import LoadingFallback from './LoadingFallback';
 import Theme from './Theme';
@@ -15,6 +16,7 @@ function App() {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <Theme theme={theme}>
+        <GlobalStyle />
         {currentUser ? (
           <Suspense fallback={<LoadingFallback />}>
             <AuthenticatedApp />
