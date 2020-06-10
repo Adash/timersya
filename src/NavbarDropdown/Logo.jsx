@@ -31,7 +31,7 @@ const Logo = () => (
         font-size: 0.5rem;
       `}
     >
-      v0.8.0.0
+      v0.8.0.1
     </span>
   </Link>
 );
