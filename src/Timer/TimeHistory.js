@@ -48,6 +48,7 @@ const StyledButtonBar = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  margin-top: 5px;
 `;
 
 const OptionsButton = styled.button`
@@ -75,6 +76,7 @@ const OptionsButton = styled.button`
 const RecordWrapper = styled.div`
   width: 100%;
   color: #2d6f47;
+  padding: 4px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
