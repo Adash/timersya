@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import 'styled-components/macro';
 import styled from 'styled-components';
 import {
@@ -136,6 +136,7 @@ const Record = ({
   displayMode,
 }) => {
   const [showEditField, setShowEditField] = useState(false);
+  const editFieldRef = useRef(null);
 
   switch (displayMode) {
     case DISPLAY.TIME:

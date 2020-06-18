@@ -285,13 +285,13 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
   const themeRef = useRef(null);
   const aboutRef = useRef(null);
 
-  function handleClickOutside(event) {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-      setOpen(false);
-    }
-  }
-
   useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -299,7 +299,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, setOpen]);
 
   const backToMain = () => {
     setActiveMenu('main');
@@ -377,16 +377,17 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
   );
 };
 
-const NavItem = ({ icon }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <StyledNavItem>
-      <IconButton href="#" onClick={() => setOpen(!open)}>
-        {icon}
-      </IconButton>
-    </StyledNavItem>
-  );
-};
+// Use when you need more buttons in different view
+// const NavItem = ({ icon }) => {
+//   const [open, setOpen] = useState(false);
+//   return (
+//     <StyledNavItem>
+//       <IconButton href="#" onClick={() => setOpen(!open)}>
+//         {icon}
+//       </IconButton>
+//     </StyledNavItem>
+//   );
+// };
 
 const NavPlaceholder = () => (
   <div
