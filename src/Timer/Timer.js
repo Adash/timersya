@@ -29,7 +29,8 @@ const TimerDisplayWrapper = styled.div`
   margin-bottom: 0rem;
   font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
   font-size: 4.5rem;
-  color: ${(props) => props.theme.timer_color || '#292e30'};
+  color: ${({ theme, running }) =>
+    running ? theme.timer_color_active : theme.timer_color};
   display: flex;
   justify-content: flex-start;
 `;
@@ -43,9 +44,9 @@ const PaddedTime = ({ children }) => (
   <>{children.toString().padStart(2, '0')}</>
 );
 
-const TimerDisplay = ({ seconds }) => {
+const TimerDisplay = ({ seconds, running }) => {
   return (
-    <TimerDisplayWrapper>
+    <TimerDisplayWrapper running={running}>
       <PaddedTime>{getOnlyHours(seconds)}</PaddedTime>:
       <PaddedTime>{getOnlyMinutes(seconds)}</PaddedTime>:
       <PaddedTime>{getOnlySeconds(seconds)}</PaddedTime>
@@ -105,7 +106,7 @@ const Timer = () => {
 
   return (
     <TimerWrapper>
-      <TimerDisplay seconds={seconds} />
+      <TimerDisplay seconds={seconds} running={running} />
       <div
         css={`
           flex-basis: 13%;

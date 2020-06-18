@@ -13,7 +13,7 @@ const HomeWrapper = styled.div`
 `;
 
 const ButtonLink = styled(Link)`
-  color: ${(props) => props.theme.text_color || '#ebe9e9'};
+  color: ${(props) => props.theme.home_btn_color || '#ebe9e9'};
   background-color: ${(props) => props.theme.base_color || '#067bc2'};
   border: none;
   padding: 30px 30px 30px 30px;
@@ -29,6 +29,7 @@ const ButtonLink = styled(Link)`
 
   &:hover {
     background-color: ${(props) => props.theme.btn_hover_color || '#2c95ce'};
+    color: #0056b3;
     text-decoration: none;
   }
   &:active {

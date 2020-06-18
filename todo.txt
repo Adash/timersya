@@ -7,7 +7,7 @@
  * both will display graph showing the time spent 
    per day or per taks over days
 ##
-# Obscure Bus
+# Obscure Bugs
 
 - figure out why the transformX moves the item few pixels on Y axis;
 
@@ -17,15 +17,11 @@
 
 # small tasks
 
-- make the dropdown dissapear when clicking outside it
-
-- fix buttons hover highlight on the home screen (inconsistent)
-
-- make the dropdown menu close after clicking outside of it
+- merge ButtonLink and Button styles used on Home Screen
 
 - add redirect to paths which should be protected when not logged in
 
--split home component in two components (unauthenticated and authenticated)
+- split home component in two components (unauthenticated and authenticated)
 
 - fix the bux when the sign up (and maybe log in) 
 form is moving up when the error message appears
@@ -33,10 +29,6 @@ form is moving up when the error message appears
 - add option for editing date
 
 - add option for editing time
-
-# bigger tasks
-
-- add themes
 
 - add medium queries to add different display format to the desktop view
 

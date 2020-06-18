@@ -18,6 +18,7 @@ const Button = styled.button`
 
   &:hover {
     background-color: ${(props) => props.theme.btn_hover_color || '#2c95ce'};
+    color: #0056b3;
     text-decoration: none;
   }
   &:active {
