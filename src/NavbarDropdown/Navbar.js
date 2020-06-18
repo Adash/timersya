@@ -259,19 +259,21 @@ const AboutMenu = ({ backToMain }) => (
 
 const DropdownToggler = () => {
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef(null);
+
   return (
-    <StyledNavItem>
+    <StyledNavItem ref={wrapperRef}>
       <IconButton href="#" onClick={() => setOpen(!open)}>
         <CaretIcon />
       </IconButton>
       <CSSTransition in={open} timeout={400} unmountOnExit classNames="drop">
-        <SimpleDropdownMenu setOpen={setOpen} />
+        <SimpleDropdownMenu setOpen={setOpen} wrapperRef={wrapperRef} />
       </CSSTransition>
     </StyledNavItem>
   );
 };
 
-const SimpleDropdownMenu = ({ currentUser, setOpen }) => {
+const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
@@ -279,7 +281,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen }) => {
   const themeRef = useRef(null);
   const aboutRef = useRef(null);
   //providing close on click outside
-  useHandleOutsideClick(dropdownRef);
+  useHandleOutsideClick(wrapperRef);
 
   function useHandleOutsideClick(ref) {
     useEffect(() => {
