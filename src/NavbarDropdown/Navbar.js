@@ -257,7 +257,7 @@ const AboutMenu = ({ backToMain }) => (
   </>
 );
 
-const DropdownToggler = () => {
+const DropdownToggler = ({ currentUser }) => {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -267,7 +267,11 @@ const DropdownToggler = () => {
         <CaretIcon />
       </IconButton>
       <CSSTransition in={open} timeout={400} unmountOnExit classNames="drop">
-        <SimpleDropdownMenu setOpen={setOpen} wrapperRef={wrapperRef} />
+        <SimpleDropdownMenu
+          setOpen={setOpen}
+          wrapperRef={wrapperRef}
+          currentUser={currentUser}
+        />
       </CSSTransition>
     </StyledNavItem>
   );
@@ -405,7 +409,11 @@ const Navbar = () => {
         <Logo />
         {/* the StyledUl is here in order to allow more menu icons for desktop view */}
         <StyledUl>
-          {currentUser ? <DropdownToggler /> : <NavPlaceholder />}
+          {currentUser ? (
+            <DropdownToggler currentUser={currentUser} />
+          ) : (
+            <NavPlaceholder />
+          )}
         </StyledUl>
       </StyledNav>
     </StackingContext>
