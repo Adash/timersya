@@ -136,7 +136,6 @@ const Record = ({
   displayMode,
 }) => {
   const [showEditField, setShowEditField] = useState(false);
-  const editFieldRef = useRef(null);
 
   switch (displayMode) {
     case DISPLAY.TIME:
@@ -237,14 +236,33 @@ const DescriptionInputField = ({
   setShowEditField,
 }) => {
   const [newDescription, setNewDescription] = useState(description);
+  const editFieldRef = useRef(null);
+
   const onEdit = (e) => {
     e.preventDefault();
     editDescription(id, newDescription);
     setShowEditField(false);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      console.log('handleClickOutside');
+      if (
+        editFieldRef.current &&
+        !editFieldRef.current.contains(event.target)
+      ) {
+        setShowEditField(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [editFieldRef, setShowEditField]);
+
   return (
-    <form onSubmit={onEdit}>
+    <form onSubmit={onEdit} ref={editFieldRef}>
       <NakedInput
         type="text"
         value={newDescription}
