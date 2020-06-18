@@ -257,13 +257,46 @@ const AboutMenu = ({ backToMain }) => (
   </>
 );
 
-const SimpleDropdownMenu = ({ currentUser }) => {
+const DropdownToggler = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <StyledNavItem>
+      <IconButton href="#" onClick={() => setOpen(!open)}>
+        <CaretIcon />
+      </IconButton>
+      <CSSTransition in={open} timeout={400} unmountOnExit classNames="drop">
+        <SimpleDropdownMenu setOpen={setOpen} />
+      </CSSTransition>
+    </StyledNavItem>
+  );
+};
+
+const SimpleDropdownMenu = ({ currentUser, setOpen }) => {
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
   const mainRef = useRef(null);
   const themeRef = useRef(null);
   const aboutRef = useRef(null);
+  //providing close on click outside
+  useHandleOutsideClick(dropdownRef);
+
+  function useHandleOutsideClick(ref) {
+    useEffect(() => {
+      // Alert if clicked on outside of element
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setOpen(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   useEffect(() => {
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
@@ -345,16 +378,13 @@ const SimpleDropdownMenu = ({ currentUser }) => {
   );
 };
 
-const NavItem = ({ icon, children }) => {
+const NavItem = ({ icon }) => {
   const [open, setOpen] = useState(false);
   return (
     <StyledNavItem>
       <IconButton href="#" onClick={() => setOpen(!open)}>
         {icon}
       </IconButton>
-      <CSSTransition in={open} timeout={400} unmountOnExit classNames="drop">
-        {children}
-      </CSSTransition>
     </StyledNavItem>
   );
 };
@@ -380,13 +410,7 @@ const Navbar = () => {
         <Logo />
         {/* the StyledUl is here in order to allow more menu icons for desktop view */}
         <StyledUl>
-          {currentUser ? (
-            <NavItem icon={<CaretIcon />}>
-              <SimpleDropdownMenu currentUser={currentUser} />
-            </NavItem>
-          ) : (
-            <NavPlaceholder />
-          )}
+          {currentUser ? <DropdownToggler /> : <NavPlaceholder />}
         </StyledUl>
       </StyledNav>
     </StackingContext>

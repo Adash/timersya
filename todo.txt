@@ -17,6 +17,10 @@
 
 # small tasks
 
+- make the dropdown dissapear when clicking outside it
+
+- fix buttons hover highlight on the home screen (inconsistent)
+
 - make the dropdown menu close after clicking outside of it
 
 - add redirect to paths which should be protected when not logged in
