@@ -107,14 +107,14 @@ const StyledUl = styled.ul`
   justify-content: flex-end;
 `;
 
-const StyledNavItem = styled.li`
+export const StyledNavItem = styled.li`
   width: calc(var(--nav-size) * 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const IconButton = styled.span`
+export const IconButton = styled.span`
   background-color: var(--bg-accent);
   border-radius: 4px 4px 4px 4px;
   padding: 5px;
@@ -376,18 +376,6 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
     </StyledDropdownMenu>
   );
 };
-
-// Use when you need more buttons in different view
-// const NavItem = ({ icon }) => {
-//   const [open, setOpen] = useState(false);
-//   return (
-//     <StyledNavItem>
-//       <IconButton href="#" onClick={() => setOpen(!open)}>
-//         {icon}
-//       </IconButton>
-//     </StyledNavItem>
-//   );
-// };
 
 const NavPlaceholder = () => (
   <div
