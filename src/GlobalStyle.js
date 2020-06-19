@@ -316,7 +316,6 @@ body {
   background-color: #fff;
 
   /* Global variables */
-
   --bg: ${(props) => props.theme.navbar_bg || '#067bc2'};
   --bg-accent: ${(props) => props.theme.navbar_bg_accent || '#05639e'};
   --text-color: ${(props) => props.theme.navbar_text_color || '#ebe9e9'};

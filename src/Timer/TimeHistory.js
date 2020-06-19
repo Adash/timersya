@@ -7,6 +7,7 @@ import {
 } from '../components/Buttons/AntiButtons';
 import { NakedInput } from '../components/Elements';
 import { FirebaseContext, AuthContext } from '../firebase/context';
+import useGetFirebaseData from '../hooks/DataFetchinHook';
 
 // some Consts for display mode of each element on the times history
 const DISPLAY = {
@@ -274,41 +275,9 @@ const DescriptionInputField = ({
 };
 
 const TimeHistory = () => {
-  const [firebaseData, setFirebaseData] = useState([]);
   const [displayMode, setDisplayMode] = useState('TIME');
-  const { currentUser } = useContext(AuthContext);
-  const { timesHistory, removeHistoryItem, editDescription } = useContext(
-    FirebaseContext
-  );
-
-  useEffect(() => {
-    try {
-      timesHistory().on('value', (snapshot) => {
-        console.log('Firebase_Datafetch function triggered');
-        if (snapshot.val() === null) {
-          setFirebaseData([]);
-          return;
-        }
-        // ok this way of filtering will work but come up with something
-        // which will perform better at scale (10000+ users)
-        const dataArray = Object.entries(snapshot.val())
-          .map(([key, value]) => ({
-            ...value,
-            id: key,
-          }))
-          .filter((item) => item.user === currentUser.uid);
-        console.log(dataArray);
-        setFirebaseData(dataArray);
-      });
-      // cleanup function
-      return () => {
-        console.log('Firebase_Datafetch cleanup function triggered');
-        timesHistory().off();
-      };
-    } catch (error) {
-      console.log(`Error happened: ${error}`);
-    }
-  }, [currentUser.uid, timesHistory]);
+  const firebaseData = useGetFirebaseData();
+  const { removeHistoryItem, editDescription } = useContext(FirebaseContext);
 
   return (
     <TimesHistoryWrapper>
