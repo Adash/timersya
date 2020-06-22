@@ -4,10 +4,11 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip } from 'recharts';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
 
 const StyledButtonBar = styled.div`
-  width: 90%;
+  width: 95%;
   height: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
   margin-top: 5px;
 `;
@@ -42,6 +43,11 @@ const StatsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledDescription = styled.div`
+  color: ${(props) => props.theme.base_color};
+  font-size: 1rem;
 `;
 
 // Try merging the two functions below into one later.
@@ -86,30 +92,25 @@ function mergeDescription(collector, record) {
   return collector;
 }
 
+// merge those two components into one which will receive dataKey prop
 const MinutesPerDayGraph = ({ data, currentTheme }) => (
-  <>
-    <p>Total minutes in a day</p>
-    <BarChart width={355} height={545} data={data} layout="vertical">
-      <CartesianGrid strokeDasharray="2 2" />
-      <Tooltip />
-      <XAxis type="number" />
-      <YAxis dataKey="day" width={75} type="category" />
-      <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
-    </BarChart>
-  </>
+  <BarChart width={355} height={530} data={data} layout="vertical">
+    <CartesianGrid strokeDasharray="2 2" />
+    <Tooltip />
+    <XAxis type="number" />
+    <YAxis dataKey="day" width={75} type="category" />
+    <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
+  </BarChart>
 );
 
 const MinutesPerTaskGraph = ({ data, currentTheme }) => (
-  <>
-    <p>Total minutes in a day</p>
-    <BarChart width={355} height={545} data={data} layout="vertical">
-      <CartesianGrid strokeDasharray="2 2" />
-      <Tooltip />
-      <XAxis type="number" />
-      <YAxis dataKey="day" width={75} type="category" />
-      <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
-    </BarChart>
-  </>
+  <BarChart width={355} height={530} data={data} layout="vertical">
+    <CartesianGrid strokeDasharray="2 2" />
+    <Tooltip />
+    <XAxis type="number" />
+    <YAxis dataKey="day" width={75} type="category" />
+    <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
+  </BarChart>
 );
 
 const Stats = () => {
@@ -145,6 +146,13 @@ const Stats = () => {
         >
           Time
         </OptionsButton>
+        <StyledDescription>
+          {showTime ? (
+            <span>Total minutes in a day</span>
+          ) : (
+            <span>Total minutes per task</span>
+          )}
+        </StyledDescription>
         <OptionsButton
           onClick={() => {
             setShowTime(false);
