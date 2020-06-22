@@ -3,6 +3,37 @@ import styled from 'styled-components';
 import { BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip } from 'recharts';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
 
+const StyledButtonBar = styled.div`
+  width: 90%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 5px;
+`;
+
+const OptionsButton = styled.button`
+  background-color: ${({
+    pressed,
+    theme: {
+      btn_options: {
+        color: { base, active },
+      },
+    },
+  }) => (pressed ? active : base)};
+  color: ${({
+    pressed,
+    theme: {
+      btn_options: {
+        color: { text, text_active },
+      },
+    },
+  }) => (pressed ? text_active : text)};
+  border: none;
+  border-radius: 1px 1px 1px 1px;
+  padding: 6px 10px 6px 10px;
+`;
+
 const StatsWrapper = styled.div`
   position: fixed;
   top: var(--nav-size);
@@ -12,6 +43,8 @@ const StatsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+// Try merging the two functions below into one later.
 
 function mergeDays(collector, record) {
   let key = record.date.slice(record.date.length - 8);
@@ -33,9 +66,56 @@ function mergeDays(collector, record) {
   return collector;
 }
 
+function mergeDescription(collector, record) {
+  let key = record.description;
+  if (collector[key]) {
+    collector[key] = {
+      ...collector[key],
+      totalMinutes:
+        collector[key].totalMinutes + record.hours * 60 + record.minutes,
+      sessionsInaDay: collector[key].sessionsInaDay + 1,
+    };
+  } else {
+    collector[key] = {
+      ...record,
+      totalMinutes: record.hours * 60 + record.minutes,
+      day: key,
+      sessionsInaDay: 1,
+    };
+  }
+  return collector;
+}
+
+const MinutesPerDayGraph = ({ data }) => (
+  <>
+    <p>Total minutes in a day</p>
+    <BarChart width={355} height={560} data={data} layout="vertical">
+      <CartesianGrid strokeDasharray="2 2" />
+      <Tooltip />
+      <XAxis type="number" />
+      <YAxis dataKey="day" width={95} type="category" />
+      <Bar dataKey="totalMinutes" fill="#067bc2" />
+    </BarChart>
+  </>
+);
+
+const MinutesPerTaskGraph = ({ data }) => (
+  <>
+    <p>Total minutes in a day</p>
+    <BarChart width={355} height={560} data={data} layout="vertical">
+      <CartesianGrid strokeDasharray="2 2" />
+      <Tooltip />
+      <XAxis type="number" />
+      <YAxis dataKey="day" width={95} type="category" />
+      <Bar dataKey="totalMinutes" fill="#067bc2" />
+    </BarChart>
+  </>
+);
+
 const Stats = () => {
   const firebaseData = useGetFirebaseData();
   const [data, setData] = useState([]);
+  const [showTime, setShowTime] = useState(true);
 
   useEffect(() => {
     if (
@@ -43,21 +123,44 @@ const Stats = () => {
       Array.isArray(firebaseData) &&
       firebaseData.length
     ) {
-      let processedData = Object.values(firebaseData.reduce(mergeDays, {}));
+      let processedData = showTime
+        ? Object.values(firebaseData.reduce(mergeDays, {}))
+        : Object.values(firebaseData.reduce(mergeDescription, {}));
       setData(processedData);
     }
-  }, [firebaseData, setData, mergeDays]);
+  }, [firebaseData, setData, mergeDays, mergeDescription, showTime]);
 
   return (
     <StatsWrapper>
-      <p>Total minutes in a day</p>
-      <BarChart width={355} height={560} data={data} layout="vertical">
-        <CartesianGrid strokeDasharray="2 2" />
-        <Tooltip />
-        <XAxis type="number" />
-        <YAxis dataKey="day" width={95} type="category" />
-        <Bar dataKey="totalMinutes" fill="#067bc2" />
-      </BarChart>
+      <StyledButtonBar>
+        <OptionsButton
+          onClick={() => {
+            setShowTime(true);
+          }}
+          css={`
+            border-radius: 9px 1px 1px 9px;
+          `}
+          pressed={showTime}
+        >
+          Time
+        </OptionsButton>
+        <OptionsButton
+          onClick={() => {
+            setShowTime(false);
+          }}
+          css={`
+            border-radius: 1px 9px 9px 1px;
+          `}
+          pressed={!showTime}
+        >
+          Description
+        </OptionsButton>
+      </StyledButtonBar>
+      {showTime ? (
+        <MinutesPerDayGraph data={data} />
+      ) : (
+        <MinutesPerTaskGraph data={data} />
+      )}
     </StatsWrapper>
   );
 };

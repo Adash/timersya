@@ -1,16 +1,18 @@
 
-# New Exciting Task!
+# Current Task!
  * Add Stats Page with two types of stats
   - breakdown by description
   - breakdown by day (date)
 
- * both will display graph showing the time spent 
-   per day or per taks over days
+ * they will display graphs showing either the total time spent 
+   per day or per task over days
+
+  Next subtask: Add graph page with time spent per activity
+
+
 ##
 
 # small tasks
-
-- add backbutton to the navbar !!!
 
 - merge ButtonLink and Button styles used on Home Screen
 
