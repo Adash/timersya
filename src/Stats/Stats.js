@@ -89,11 +89,11 @@ function mergeDescription(collector, record) {
 const MinutesPerDayGraph = ({ data, currentTheme }) => (
   <>
     <p>Total minutes in a day</p>
-    <BarChart width={355} height={560} data={data} layout="vertical">
+    <BarChart width={355} height={545} data={data} layout="vertical">
       <CartesianGrid strokeDasharray="2 2" />
       <Tooltip />
       <XAxis type="number" />
-      <YAxis dataKey="day" width={95} type="category" />
+      <YAxis dataKey="day" width={75} type="category" />
       <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
     </BarChart>
   </>
@@ -102,11 +102,11 @@ const MinutesPerDayGraph = ({ data, currentTheme }) => (
 const MinutesPerTaskGraph = ({ data, currentTheme }) => (
   <>
     <p>Total minutes in a day</p>
-    <BarChart width={355} height={560} data={data} layout="vertical">
+    <BarChart width={355} height={545} data={data} layout="vertical">
       <CartesianGrid strokeDasharray="2 2" />
       <Tooltip />
       <XAxis type="number" />
-      <YAxis dataKey="day" width={95} type="category" />
+      <YAxis dataKey="day" width={75} type="category" />
       <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
     </BarChart>
   </>
