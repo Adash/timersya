@@ -4,9 +4,7 @@ import { FirebaseContext, AuthContext } from '../firebase/context';
 const useGetFirebaseData = () => {
   const [firebaseData, setFirebaseData] = useState([]);
   const { currentUser } = useContext(AuthContext);
-  const { timesHistory, removeHistoryItem, editDescription } = useContext(
-    FirebaseContext
-  );
+  const { timesHistory } = useContext(FirebaseContext);
 
   useEffect(() => {
     console.log('useGetFirebaseData hook triggered');

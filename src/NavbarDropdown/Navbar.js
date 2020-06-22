@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { navigate } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 import * as routes from '../constants/routes';
 
 import styled from 'styled-components';
@@ -329,7 +329,10 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
             leftIcon={<BellIcon />}
             setActiveMenu
             rightIcon={' '}
-            handleClick={() => navigate(routes.stats)}
+            handleClick={() => {
+              setOpen(false);
+              navigate(routes.stats);
+            }}
           >
             Stats
           </DropdownItem>

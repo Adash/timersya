@@ -6,7 +6,7 @@ import {
   AntiButtonOK,
 } from '../components/Buttons/AntiButtons';
 import { NakedInput } from '../components/Elements';
-import { FirebaseContext, AuthContext } from '../firebase/context';
+import { FirebaseContext } from '../firebase/context';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
 
 // some Consts for display mode of each element on the times history

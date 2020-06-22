@@ -13,36 +13,51 @@ const StatsWrapper = styled.div`
   align-items: center;
 `;
 
+function mergeDays(collector, record) {
+  let key = record.date.slice(record.date.length - 8);
+  if (collector[key]) {
+    collector[key] = {
+      ...collector[key],
+      totalMinutes:
+        collector[key].totalMinutes + record.hours * 60 + record.minutes,
+      sessionsInaDay: collector[key].sessionsInaDay + 1,
+    };
+  } else {
+    collector[key] = {
+      ...record,
+      totalMinutes: record.hours * 60 + record.minutes,
+      day: key,
+      sessionsInaDay: 1,
+    };
+  }
+  return collector;
+}
+
 const Stats = () => {
   const firebaseData = useGetFirebaseData();
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (firebaseData !== 'undefined' && Array.isArray(firebaseData)) {
-      let processedData = firebaseData.map((element) => ({
-        ...element,
-        totalMinutes: element.hours * 60 + element.minutes,
-      }));
+    if (
+      firebaseData !== 'undefined' &&
+      Array.isArray(firebaseData) &&
+      firebaseData.length
+    ) {
+      let processedData = Object.values(firebaseData.reduce(mergeDays, {}));
+      console.log('processedData');
+      console.log(processedData);
       setData(processedData);
-      // alert('hey');
     }
-  }, [firebaseData, setData]);
+  }, [firebaseData, setData, mergeDays]);
 
   return (
     <StatsWrapper>
-      <p>stats</p>
-      <button
-        onClick={() => {
-          console.log(firebaseData);
-        }}
-      >
-        get firebase data into console
-      </button>
-      <BarChart width={350} height={630} data={data} layout="vertical">
+      <p>Total minutes in a day</p>
+      <BarChart width={355} height={560} data={data} layout="vertical">
         <CartesianGrid strokeDasharray="2 2" />
         <Tooltip />
         <XAxis type="number" />
-        <YAxis dataKey="description" type="category" />
+        <YAxis dataKey="day" width={95} type="category" />
         <Bar dataKey="totalMinutes" fill="#067bc2" />
       </BarChart>
     </StatsWrapper>
