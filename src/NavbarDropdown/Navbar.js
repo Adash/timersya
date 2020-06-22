@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { navigate, useLocation } from '@reach/router';
+import { navigate } from '@reach/router';
 import * as routes from '../constants/routes';
 
 import styled from 'styled-components';
@@ -12,6 +12,8 @@ import ToggleTheme from '../components/Buttons/ThemeToggle';
 import { AuthContext } from '../firebase/context';
 import { ThemeContext } from '../App/App';
 
+import { ReactComponent as CogIcon } from './icons/cog.svg';
+import { ReactComponent as MessengerIcon } from './icons/messenger.svg';
 import { ReactComponent as Sun } from './icons/sun.svg';
 import { ReactComponent as Moon } from './icons/moon.svg';
 import { ReactComponent as BellIcon } from './icons/bell.svg';
@@ -326,6 +328,28 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
             Logged as: {currentUser && currentUser.email}
           </DropdownTextArea>
           <DropdownItem
+            leftIcon={<MessengerIcon />}
+            setActiveMenu
+            rightIcon={' '}
+            handleClick={() => {
+              setOpen(false);
+              navigate(routes.home);
+            }}
+          >
+            Home
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<BoltIcon />}
+            setActiveMenu
+            rightIcon={' '}
+            handleClick={() => {
+              setOpen(false);
+              navigate(routes.timer);
+            }}
+          >
+            Timer
+          </DropdownItem>
+          <DropdownItem
             leftIcon={<BellIcon />}
             setActiveMenu
             rightIcon={' '}
@@ -337,7 +361,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
             Stats
           </DropdownItem>
           <DropdownItem
-            leftIcon={<BoltIcon />}
+            leftIcon={<CogIcon />}
             rightIcon={<ChevronIcon />}
             handleClick={() => setActiveMenu('theme')}
           >

@@ -44,8 +44,6 @@ const Stats = () => {
       firebaseData.length
     ) {
       let processedData = Object.values(firebaseData.reduce(mergeDays, {}));
-      console.log('processedData');
-      console.log(processedData);
       setData(processedData);
     }
   }, [firebaseData, setData, mergeDays]);
