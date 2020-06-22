@@ -7,7 +7,7 @@
  * they will display graphs showing either the total time spent 
    per day or per task over days
 
-  Next subtask: Add graph page with time spent per activity
+  Next subtask: Tidy up and refactor Stats component
 
 
 ##

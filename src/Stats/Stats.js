@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip } from 'recharts';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
 
@@ -86,7 +86,7 @@ function mergeDescription(collector, record) {
   return collector;
 }
 
-const MinutesPerDayGraph = ({ data }) => (
+const MinutesPerDayGraph = ({ data, currentTheme }) => (
   <>
     <p>Total minutes in a day</p>
     <BarChart width={355} height={560} data={data} layout="vertical">
@@ -94,12 +94,12 @@ const MinutesPerDayGraph = ({ data }) => (
       <Tooltip />
       <XAxis type="number" />
       <YAxis dataKey="day" width={95} type="category" />
-      <Bar dataKey="totalMinutes" fill="#067bc2" />
+      <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
     </BarChart>
   </>
 );
 
-const MinutesPerTaskGraph = ({ data }) => (
+const MinutesPerTaskGraph = ({ data, currentTheme }) => (
   <>
     <p>Total minutes in a day</p>
     <BarChart width={355} height={560} data={data} layout="vertical">
@@ -107,7 +107,7 @@ const MinutesPerTaskGraph = ({ data }) => (
       <Tooltip />
       <XAxis type="number" />
       <YAxis dataKey="day" width={95} type="category" />
-      <Bar dataKey="totalMinutes" fill="#067bc2" />
+      <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
     </BarChart>
   </>
 );
@@ -116,6 +116,7 @@ const Stats = () => {
   const firebaseData = useGetFirebaseData();
   const [data, setData] = useState([]);
   const [showTime, setShowTime] = useState(true);
+  const currentTheme = useContext(ThemeContext);
 
   useEffect(() => {
     if (
@@ -157,9 +158,9 @@ const Stats = () => {
         </OptionsButton>
       </StyledButtonBar>
       {showTime ? (
-        <MinutesPerDayGraph data={data} />
+        <MinutesPerDayGraph data={data} currentTheme={currentTheme} />
       ) : (
-        <MinutesPerTaskGraph data={data} />
+        <MinutesPerTaskGraph data={data} currentTheme={currentTheme} />
       )}
     </StatsWrapper>
   );
