@@ -50,10 +50,9 @@ const StyledDescription = styled.div`
   font-size: 1rem;
 `;
 
-// Try merging the two functions below into one later.
-
-function mergeDays(collector, record) {
-  let key = record.date.slice(record.date.length - 8);
+// ## Reducer Funcions ##
+// shared routine for merging data
+function mergeData(collector, record, key) {
   if (collector[key]) {
     collector[key] = {
       ...collector[key],
@@ -72,24 +71,14 @@ function mergeDays(collector, record) {
   return collector;
 }
 
+function mergeDays(collector, record) {
+  let key = record.date.slice(record.date.length - 8);
+  return mergeData(collector, record, key);
+}
+
 function mergeDescription(collector, record) {
   let key = record.description;
-  if (collector[key]) {
-    collector[key] = {
-      ...collector[key],
-      totalMinutes:
-        collector[key].totalMinutes + record.hours * 60 + record.minutes,
-      sessionsInaDay: collector[key].sessionsInaDay + 1,
-    };
-  } else {
-    collector[key] = {
-      ...record,
-      totalMinutes: record.hours * 60 + record.minutes,
-      day: key,
-      sessionsInaDay: 1,
-    };
-  }
-  return collector;
+  return mergeData(collector, record, key);
 }
 
 // merge those two components into one which will receive dataKey prop
@@ -125,12 +114,10 @@ const Stats = () => {
       Array.isArray(firebaseData) &&
       firebaseData.length
     ) {
-      let processedData = showTime
-        ? Object.values(firebaseData.reduce(mergeDays, {}))
-        : Object.values(firebaseData.reduce(mergeDescription, {}));
-      setData(processedData);
+      let reducerFunction = showTime ? mergeDays : mergeDescription;
+      setData(Object.values(firebaseData.reduce(reducerFunction, {})));
     }
-  }, [firebaseData, setData, mergeDays, mergeDescription, showTime]);
+  }, [firebaseData, setData, showTime]);
 
   return (
     <StatsWrapper>
