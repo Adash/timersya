@@ -19,4 +19,5 @@ export const NakedInput = styled.input`
   background-color: #edf8f8;
   padding: 0;
   margin: 0;
+  text-align: center;
 `;

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import TimeHistory from './TimeHistory';
 import moment from 'moment';
 import { FirebaseContext, AuthContext } from '../firebase/context';
+import TimerDescription from './TimerDescription';
+import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
 
 import {
   TimerButtonReset,
@@ -20,19 +22,23 @@ const TimerWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  /* flex-basis: 100%; */
 `;
 
 const TimerDisplayWrapper = styled.div`
   text-align: center;
-  /* margin-top: 1.5rem; */
   margin-bottom: 0rem;
   font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
   font-size: 4.5rem;
+  line-height: 1.2;
   color: ${({ theme, running }) =>
     running ? theme.timer_color_active : theme.timer_color};
   display: flex;
   justify-content: flex-start;
+`;
+
+const ToggleWrapper = styled.div`
+  margin-bottom: 10px;
+  font-size: 1.3rem;
 `;
 
 const getOnlyHours = (number) =>
@@ -57,6 +63,8 @@ const calculateTimeLeft = (start, seconds = 0) =>
   seconds + Math.trunc(new Date().getTime() / 1000) - start;
 
 const Timer = () => {
+  const [showEditDescription, setShowEditDescription] = useState(false);
+  const [description, setDescription] = useState('timer description');
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
@@ -98,7 +106,7 @@ const Timer = () => {
       hours: getOnlyHours(seconds),
       minutes: getOnlyMinutes(seconds),
       seconds: getOnlySeconds(seconds),
-      description: 'OmManiPemeHung',
+      description: description,
       user: currentUser.uid,
     };
     saveTime(newTime);
@@ -107,6 +115,24 @@ const Timer = () => {
   return (
     <TimerWrapper>
       <TimerDisplay seconds={seconds} running={running} />
+      <ToggleWrapper>
+        {showEditDescription ? (
+          <TimerDescription
+            description={description}
+            setDescription={setDescription}
+            setShowEditDescription={setShowEditDescription}
+          />
+        ) : (
+          <AntiButtonGeneral
+            onClick={() => setShowEditDescription(true)}
+            css={`
+              cursor: pointer;
+            `}
+          >
+            {description}
+          </AntiButtonGeneral>
+        )}
+      </ToggleWrapper>
       <div
         css={`
           flex-basis: 13%;

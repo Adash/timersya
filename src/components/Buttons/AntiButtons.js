@@ -25,4 +25,8 @@ export const AntiButtonOK = styled(AntiButton)`
   color: ${(props) => props.theme.antibutton_ok_color || '#d2ba3f'};
 `;
 
+export const AntiButtonGeneral = styled(AntiButton)`
+  color: ${(props) => props.theme.base_color || '#d2ba3f'};
+`;
+
 export default AntiButton;
