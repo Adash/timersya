@@ -34,7 +34,7 @@ const TimerDisplayWrapper = styled.div`
   margin-bottom: 0rem;
   font-size: 4.5rem;
   width: 22rem;
-  flex: 0 0 4rem;
+  flex: 0 0 4.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -49,7 +49,7 @@ const ToggleWrapper = styled.div`
 `;
 
 const StyledDigits = styled.div`
-  /* currently unused */
+  width: 6.1rem;
 `;
 
 const getOnlyHours = (number) =>
