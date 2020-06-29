@@ -22,26 +22,34 @@ const TimerWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  /* top: var(--nav-size); */
 `;
 
 const TimerDisplayWrapper = styled.div`
-  text-align: center;
   font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
   color: ${({ theme, running }) =>
     running ? theme.timer_color_active : theme.timer_color};
-  justify-content: flex-start;
-  text-align: center;
-  flex: 0 0;
   line-height: 0.9;
   margin-top: 5px;
   margin-bottom: 0rem;
   font-size: 4.5rem;
+  width: 22rem;
+  flex: 0 0 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const ToggleWrapper = styled.div`
+  position: relative;
   margin-top: 0px;
   margin-bottom: 7px;
   font-size: 1.5rem;
+`;
+
+const StyledDigits = styled.div`
+  /* currently unused */
 `;
 
 const getOnlyHours = (number) =>
@@ -50,7 +58,7 @@ const getOnlyMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
 const getOnlySeconds = (number) => Math.floor(number % 60);
 
 const PaddedTime = ({ children }) => (
-  <>{children.toString().padStart(2, '0')}</>
+  <StyledDigits>{children.toString().padStart(2, '0')}</StyledDigits>
 );
 
 const TimerDisplay = ({ seconds, running }) => {
