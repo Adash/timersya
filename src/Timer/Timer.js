@@ -26,20 +26,21 @@ const TimerWrapper = styled.div`
 
 const TimerDisplayWrapper = styled.div`
   text-align: center;
-  margin-bottom: 0rem;
   font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
-  font-size: 4.5rem;
-  line-height: 1.2;
   color: ${({ theme, running }) =>
     running ? theme.timer_color_active : theme.timer_color};
-  display: flex;
   justify-content: flex-start;
+  text-align: center;
   flex: 0 0;
-  height: 5.1rem;
+  line-height: 0.9;
+  margin-top: 5px;
+  margin-bottom: 0rem;
+  font-size: 4.5rem;
 `;
 
 const ToggleWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 7px;
   font-size: 1.5rem;
 `;
 
