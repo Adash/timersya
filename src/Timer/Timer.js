@@ -34,6 +34,8 @@ const TimerDisplayWrapper = styled.div`
     running ? theme.timer_color_active : theme.timer_color};
   display: flex;
   justify-content: flex-start;
+  flex: 0 0;
+  height: 7.3rem;
 `;
 
 const ToggleWrapper = styled.div`
