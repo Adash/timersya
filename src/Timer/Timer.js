@@ -35,12 +35,12 @@ const TimerDisplayWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   flex: 0 0;
-  height: 7.3rem;
+  height: 5.1rem;
 `;
 
 const ToggleWrapper = styled.div`
   margin-bottom: 10px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 `;
 
 const getOnlyHours = (number) =>
@@ -66,7 +66,7 @@ const calculateTimeLeft = (start, seconds = 0) =>
 
 const Timer = () => {
   const [showEditDescription, setShowEditDescription] = useState(false);
-  const [description, setDescription] = useState('timer description');
+  const [description, setDescription] = useState('edit description');
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
