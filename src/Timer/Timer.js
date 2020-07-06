@@ -75,7 +75,7 @@ const calculateTimeLeft = (start, seconds = 0) =>
 
 const Timer = () => {
   const [showEditDescription, setShowEditDescription] = useState(false);
-  const [description, setDescription] = useState('edit description');
+  const [description, setDescription] = useState('edit');
   const [running, setRunning] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);

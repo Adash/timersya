@@ -9,6 +9,10 @@ const DescriptionInputField = ({
 }) => {
   const editFieldRef = useRef(null);
 
+  const handleFocus = (e) => {
+    e.target.select();
+  };
+
   const onEdit = (e) => {
     e.preventDefault();
     // editDescription(id, newDescription);
@@ -36,7 +40,9 @@ const DescriptionInputField = ({
     <form onSubmit={onEdit} ref={editFieldRef}>
       <NakedInput
         type="text"
+        autoFocus
         value={description}
+        onFocus={handleFocus}
         onChange={(e) => setDescription(e.target.value)}
       />
       <AntiButtonOK type="submit">save</AntiButtonOK>
