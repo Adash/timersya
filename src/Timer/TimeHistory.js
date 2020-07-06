@@ -239,6 +239,10 @@ const DescriptionInputField = ({
   const [newDescription, setNewDescription] = useState(description);
   const editFieldRef = useRef(null);
 
+  const handleFocus = (e) => {
+    e.target.select();
+  };
+
   const onEdit = (e) => {
     e.preventDefault();
     editDescription(id, newDescription);
@@ -266,6 +270,8 @@ const DescriptionInputField = ({
     <form onSubmit={onEdit} ref={editFieldRef}>
       <NakedInput
         type="text"
+        autoFocus
+        onFocus={handleFocus}
         value={newDescription}
         onChange={(e) => setNewDescription(e.target.value)}
       />
