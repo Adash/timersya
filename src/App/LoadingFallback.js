@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from '../Header';
+import Navbar from '../NavbarDropdown/Navbar';
+import DualRing from '../components/Spinners/DualRing';
 import 'styled-components/macro';
 
 const LoadingFallback = () => (
   <>
-    <Header />
+    <Navbar />
     <div
       css={`
         position: absolute;
@@ -12,16 +13,12 @@ const LoadingFallback = () => (
         bottom: 0;
         width: 100%;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       `}
     >
-      <p
-        css={`
-          color: #7a8586;
-          margin-top: 5px;
-        `}
-      >
-        Loading...
-      </p>
+      <DualRing color="#067bc2" />
     </div>
   </>
 );

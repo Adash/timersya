@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useContext } from 'react';
+import React, { useState, Suspense, useContext, useEffect } from 'react';
 import { GlobalStyle } from '../GlobalStyle';
 import { AuthContext } from '../firebase/context';
 import LoadingFallback from './LoadingFallback';
@@ -12,6 +12,13 @@ export const ThemeContext = React.createContext(null);
 function App() {
   const { currentUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(true);
+
+  // just for debugging
+  useEffect(() => {
+    console.log('useEffect triggered... currentUser state:');
+    console.log(currentUser);
+  }, [currentUser]);
+  // remove the above useEffect after the investigation
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

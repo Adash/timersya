@@ -1,11 +1,6 @@
 
 # Current Task!
- * Add Stats Page with two types of stats
-  - breakdown by description
-  - breakdown by day (date)
-
- * they will display graphs showing either the total time spent 
-   per day or per task over days
+  try to prevent the displaying of 'unauthenticated app' for a second when the user is logged in 
 
   Next subtask: Tidy up and refactor Stats component
 
