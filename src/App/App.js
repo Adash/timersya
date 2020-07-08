@@ -14,10 +14,10 @@ function App() {
   const [theme, setTheme] = useState(true);
 
   // just for debugging
-  useEffect(() => {
-    console.log('useEffect triggered... currentUser state:');
-    console.log(currentUser);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   console.log('useEffect triggered... currentUser state:');
+  //   console.log(currentUser);
+  // }, [currentUser]);
   // remove the above useEffect after the investigation
 
   return (

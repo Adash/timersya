@@ -1,7 +1,7 @@
 import React from 'react';
 import './dualRing.css';
 
-export default function DualRing({ color = '#7f58af', style = {}, size = 80 }) {
+export default function DualRing({ color = '#067bc2', style = {}, size = 80 }) {
   return (
     <div
       className="lds-dual-ring"
