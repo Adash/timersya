@@ -112,6 +112,8 @@ const Timer = () => {
     if (seconds === 0) {
       return;
     }
+    resetTimer();
+    setDescription('edit');
     const newTime = {
       date: moment().format('h:mm DD-MM-YY'),
       hours: getOnlyHours(seconds),
