@@ -81,18 +81,7 @@ function mergeDescription(collector, record) {
   return mergeData(collector, record, key);
 }
 
-// merge those two components into one which will receive dataKey prop
-const MinutesPerDayGraph = ({ data, currentTheme }) => (
-  <BarChart width={355} height={530} data={data} layout="vertical">
-    <CartesianGrid strokeDasharray="2 2" />
-    <Tooltip />
-    <XAxis type="number" />
-    <YAxis dataKey="day" width={75} type="category" />
-    <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
-  </BarChart>
-);
-
-const MinutesPerTaskGraph = ({ data, currentTheme }) => (
+const Graph = ({ data, currentTheme }) => (
   <BarChart width={355} height={530} data={data} layout="vertical">
     <CartesianGrid strokeDasharray="2 2" />
     <Tooltip />
@@ -152,11 +141,7 @@ const Stats = () => {
           Description
         </OptionsButton>
       </StyledButtonBar>
-      {showTime ? (
-        <MinutesPerDayGraph data={data} currentTheme={currentTheme} />
-      ) : (
-        <MinutesPerTaskGraph data={data} currentTheme={currentTheme} />
-      )}
+      <Graph data={data} currentTheme={currentTheme} />
     </StatsWrapper>
   );
 };

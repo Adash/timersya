@@ -30,23 +30,6 @@ form is moving up when the error message appears
 
 ## Medium tasks
 
-- Add timer editable label field under current timer which will be pushed
-  together with the time, date, user etc to the firebase on save
-
-- extract the Firebase data fetching logic used in TimesHistory into a hook
-  which could be also used in stats
 
 # Obscure Bugs
 
-- figure out why the transformX moves the item few pixels on Y axis;
-
-- adjust positioning on login and signup screens
-
-- fix the size 'flicker' when switching from time fo options 
-
-?? error when edit description: 
-  Warning: Can't perform a React state update on an 
-  unmounted component. This is a no-op, but it indicates a memory 
-  leak in your application. To fix, cancel all subscriptions and 
-  asynchronous tasks in a useEffect cleanup function.
-    in Timer (at AuthenticatedApp.js:16)
