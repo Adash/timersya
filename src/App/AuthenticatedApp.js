@@ -76,7 +76,7 @@ const AuthenticatedApp = () => {
       <Navbar />
       <MainWrapper>
         <StyledRouter>
-          <AuthenticatedHome path={routes.home} />
+          <AuthenticatedHome default path={routes.home} />
           <Timer
             path={routes.timer}
             seconds={seconds}
