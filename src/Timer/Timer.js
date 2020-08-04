@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import TimeHistory from './TimeHistory';
-import moment from 'moment';
-import { FirebaseContext, AuthContext } from '../firebase/context';
 import TimerDescription from './TimerDescription';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
 
@@ -70,61 +68,18 @@ const TimerDisplay = ({ seconds, running }) => {
     </TimerDisplayWrapper>
   );
 };
-const calculateTimeLeft = (start, seconds = 0) =>
-  seconds + Math.trunc(new Date().getTime() / 1000) - start;
 
-const Timer = () => {
+const Timer = ({
+  seconds,
+  running,
+  startTimer,
+  stopTimer,
+  resetTimer,
+  onSave,
+  description,
+  setDescription,
+}) => {
   const [showEditDescription, setShowEditDescription] = useState(false);
-  const [description, setDescription] = useState('edit');
-  const [running, setRunning] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [timerInterval, setTimerInterval] = useState(false);
-  const { currentUser } = useContext(AuthContext);
-  const { saveTime } = useContext(FirebaseContext);
-
-  const startTimer = () => {
-    setRunning(true);
-    const startTime = Math.trunc(new Date().getTime() / 1000);
-    setTimerInterval(
-      setInterval(() => {
-        setTimeElapsed(calculateTimeLeft(startTime, seconds));
-      }, 1000)
-    );
-  };
-
-  useEffect(() => {
-    setSeconds(timeElapsed);
-  }, [timeElapsed]);
-
-  const stopTimer = () => {
-    setRunning(false);
-    clearInterval(timerInterval);
-  };
-
-  const resetTimer = () => {
-    setRunning(false);
-    clearInterval(timerInterval);
-    setSeconds(0);
-  };
-
-  const onSave = () => {
-    if (seconds === 0) {
-      return;
-    }
-    resetTimer();
-    setDescription('edit');
-    const newTime = {
-      date: moment().format('h:mm DD-MM-YY'),
-      hours: getOnlyHours(seconds),
-      minutes: getOnlyMinutes(seconds),
-      seconds: getOnlySeconds(seconds),
-      description: description,
-      user: currentUser.uid,
-    };
-    saveTime(newTime);
-  };
-
   return (
     <TimerWrapper>
       <TimerDisplay seconds={seconds} running={running} />
