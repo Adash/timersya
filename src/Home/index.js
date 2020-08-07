@@ -52,6 +52,7 @@ const AuthenticatedHome = () => {
   return (
     <HomeWrapper>
       <ButtonLink to={routes.timer}>Timer</ButtonLink>
+      <ButtonLink to={routes.offlineTimer}>Offline Timer</ButtonLink>
       <Button onClick={signOut}>Sign out</Button>
     </HomeWrapper>
   );

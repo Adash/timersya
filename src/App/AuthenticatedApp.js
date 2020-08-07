@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StyledRouter } from '../components/Wrappers';
-// import Header from '../Header';
 import Navbar from '../NavbarDropdown/Navbar';
 import { AuthenticatedHome } from '../Home/';
 import Timer from '../Timer/Timer';
+import OfflineTimer from '../Timer/OfflineTimer';
 import Stats from '../Stats/Stats';
 import { MainWrapper } from '../components/Wrappers';
 import * as routes from '../constants/routes';
@@ -87,6 +87,14 @@ const AuthenticatedApp = () => {
             onSave={onSave}
             description={description}
             setDescription={setDescription}
+          />
+          <OfflineTimer
+            path={routes.offlineTimer}
+            seconds={seconds}
+            running={running}
+            startTimer={startTimer}
+            stopTimer={stopTimer}
+            resetTimer={resetTimer}
           />
           <Stats path={routes.stats} />
         </StyledRouter>
