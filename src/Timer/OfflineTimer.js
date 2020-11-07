@@ -149,7 +149,7 @@ const OfflineTimer = ({
       )}
       <AntiButtonGeneral
         onClick={() => {
-          const localStorageTest = JSON.stringify(
+          const localStorageTest = JSON.parse(
             localStorage.getItem('storedTime')
           );
           console.log(localStorageTest);
