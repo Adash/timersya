@@ -11,6 +11,7 @@ import 'styled-components/macro';
 // timer related imports
 import moment from 'moment';
 import { FirebaseContext, AuthContext } from '../firebase/context';
+import AddManually from '../AddManually';
 
 const getOnlyHours = (number) =>
   Math.floor((number % (60 * 60 * 24)) / (60 * 60));
@@ -96,6 +97,7 @@ const AuthenticatedApp = () => {
             stopTimer={stopTimer}
             resetTimer={resetTimer}
           />
+          <AddManually path={routes.add} />
           <Stats path={routes.stats} />
         </StyledRouter>
       </MainWrapper>
