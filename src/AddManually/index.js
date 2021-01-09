@@ -130,12 +130,7 @@ const AddManually = () => {
             setShowEditDescription={setShowEditDescription}
           />
         ) : (
-          <AntiButtonGeneral
-            onClick={() => setShowEditDescription(true)}
-            css={`
-              cursor: pointer;
-            `}
-          >
+          <AntiButtonGeneral onClick={() => setShowEditDescription(true)}>
             {description}
           </AntiButtonGeneral>
         )}
