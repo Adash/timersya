@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import TimerDescription from '../Timer/TimerDescription';
+import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
 import styled from 'styled-components';
 
 const AddWrapper = styled.div`
@@ -33,14 +35,23 @@ const StyledInput = styled.input`
   width: 6.1rem;
 `;
 
-const showHours = (number) => Math.floor((number % (60 * 60 * 24)) / (60 * 60));
-const showMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
-const showSeconds = (number) => Math.floor(number % 60);
+const ToggleWrapper = styled.div`
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 7px;
+  font-size: 1.5rem;
+`;
+
+const getHours = (number) => Math.floor((number % (60 * 60 * 24)) / (60 * 60));
+const getMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
+const getSeconds = (number) => Math.floor(number % 60);
 
 const AddManually = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
+  const [showEditDescription, setShowEditDescription] = useState(false);
+  const [description, setDescription] = useState('description');
 
   // useEffect(()=>{},[minutes])
 
@@ -111,6 +122,24 @@ const AddManually = () => {
           onChange={(event) => onChange(event, 'seconds')}
         />
       </TimerDisplayWrapper>
+      <ToggleWrapper>
+        {showEditDescription ? (
+          <TimerDescription
+            description={description}
+            setDescription={setDescription}
+            setShowEditDescription={setShowEditDescription}
+          />
+        ) : (
+          <AntiButtonGeneral
+            onClick={() => setShowEditDescription(true)}
+            css={`
+              cursor: pointer;
+            `}
+          >
+            {description}
+          </AntiButtonGeneral>
+        )}
+      </ToggleWrapper>
     </AddWrapper>
   );
 };
