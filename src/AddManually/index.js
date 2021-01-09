@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TimerDescription from '../Timer/TimerDescription';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
+import { FirebaseContext, AuthContext } from '../firebase/context';
+import moment from 'moment';
 import styled from 'styled-components';
 
 const AddWrapper = styled.div`
@@ -42,9 +44,10 @@ const ToggleWrapper = styled.div`
   font-size: 1.5rem;
 `;
 
-const getHours = (number) => Math.floor((number % (60 * 60 * 24)) / (60 * 60));
-const getMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
-const getSeconds = (number) => Math.floor(number % 60);
+const getOnlyHours = (number) =>
+  Math.floor((number % (60 * 60 * 24)) / (60 * 60));
+const getOnlyMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
+const getOnlySeconds = (number) => Math.floor(number % 60);
 
 const AddManually = () => {
   const [seconds, setSeconds] = useState(0);
@@ -52,33 +55,8 @@ const AddManually = () => {
   const [hours, setHours] = useState(0);
   const [showEditDescription, setShowEditDescription] = useState(false);
   const [description, setDescription] = useState('description');
-
-  // useEffect(()=>{},[minutes])
-
-  // const addHours = (event) => {
-  //   const newHours = event.target.value;
-
-  //   if (isNaN(newHours) === true) {
-  //     return;
-  //   }
-  //   if (newHours > 60) {
-  //     setSeconds(60);
-  //     return;
-  //   }
-  //   setSeconds(newHours);
-  // };
-
-  // const addMinutes = (event) => {
-  //   const newMinutes = event.target.value;
-  //   if (isNaN(minutes) === true) {
-  //     return;
-  //   }
-  //   if (minutes > 60) {
-  //     setSeconds(minutes * 60);
-  //     return;
-  //   }
-  //   setSeconds((prevState) => minutes * 60 + prevState);
-  // };
+  const { currentUser } = useContext(AuthContext);
+  const { saveTime } = useContext(FirebaseContext);
 
   const onChange = (event, unit) => {
     let newValue = event.target.value.replace(/^[0]+/g, '');
@@ -100,6 +78,25 @@ const AddManually = () => {
         setSeconds(newValue);
         break;
     }
+  };
+
+  const submit = () => {
+    if (seconds === 0) {
+      return;
+    }
+    setSeconds(0);
+    setMinutes(0);
+    setHours(0);
+    setDescription('edit');
+    const newTime = {
+      date: moment().format('h:mm DD-MM-YY'),
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+      description: description,
+      user: currentUser.uid,
+    };
+    saveTime(newTime);
   };
 
   return (
@@ -135,6 +132,7 @@ const AddManually = () => {
           </AntiButtonGeneral>
         )}
       </ToggleWrapper>
+      <AntiButtonGeneral onClick={submit}>Add</AntiButtonGeneral>
     </AddWrapper>
   );
 };
