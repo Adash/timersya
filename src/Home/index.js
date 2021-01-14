@@ -6,10 +6,14 @@ import { Button } from '../components/Buttons';
 import { FirebaseContext } from '../firebase/context';
 
 const HomeWrapper = styled.div`
+  margin: auto;
+  width: 304px;
+  max-height: 273px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: space-between;
 `;
 
 const ButtonLink = styled(Link)`
@@ -26,6 +30,7 @@ const ButtonLink = styled(Link)`
   text-align: center;
   cursor: pointer;
   margin-bottom: 5px;
+  flex: 0 0 auto;
 
   &:hover {
     background-color: ${(props) => props.theme.btn_hover_color || '#2c95ce'};
@@ -51,7 +56,8 @@ const AuthenticatedHome = () => {
 
   return (
     <HomeWrapper>
-      <ButtonLink to={routes.timer}>Timer</ButtonLink>
+      <ButtonLink to={routes.timer}>Online Timer</ButtonLink>
+      <ButtonLink to={routes.add}>Add Tasks</ButtonLink>
       <ButtonLink to={routes.offlineTimer}>Offline Timer</ButtonLink>
       <Button onClick={signOut}>Sign out</Button>
     </HomeWrapper>

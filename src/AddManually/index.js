@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import TimerDescription from '../Timer/TimerDescription';
 import TimerHistory from '../Timer/TimeHistory';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
+import Button from '../components/Buttons/Button';
 import { FirebaseContext, AuthContext } from '../firebase/context';
 import moment from 'moment';
 import styled from 'styled-components';
@@ -36,16 +37,23 @@ const TimerDisplayWrapper = styled.div`
 
 const StyledInput = styled.input`
   width: 6.1rem;
+  border: 2px solid gray;
+  border-radius: 10px;
 `;
 
 const ToggleWrapper = styled.div`
   position: relative;
-  margin-top: 10px;
-  margin-bottom: 7px;
-  font-size: 1.5rem;
+  margin-top: 7px;
+  margin-bottom: 4px;
+  font-size: 1.4rem;
   width: 370px;
   display: flex;
   justify-content: center;
+`;
+
+const AddButton = styled(Button)`
+  padding: 3px 30px 3px 30px;
+  margin-bottom: 0px;
 `;
 
 const getOnlyHours = (number) =>
@@ -122,7 +130,7 @@ const AddManually = () => {
           onChange={(event) => onChange(event, 'seconds')}
         />
       </TimerDisplayWrapper>
-      <AntiButtonGeneral onClick={submit}>Add</AntiButtonGeneral>
+      <AddButton onClick={submit}>Add</AddButton>
       <ToggleWrapper>
         {showEditDescription ? (
           <TimerDescription

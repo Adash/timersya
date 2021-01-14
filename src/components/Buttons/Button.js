@@ -15,6 +15,7 @@ const Button = styled.button`
   text-align: center;
   cursor: pointer;
   margin-bottom: 5px;
+  flex: 0 0 auto;
 
   &:hover {
     background-color: ${(props) => props.theme.btn_hover_color || '#2c95ce'};
