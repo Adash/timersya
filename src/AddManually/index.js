@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import TimerDescription from '../Timer/TimerDescription';
+import TimerHistory from '../Timer/TimeHistory';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
 import { FirebaseContext, AuthContext } from '../firebase/context';
 import moment from 'moment';
@@ -22,8 +23,8 @@ const TimerDisplayWrapper = styled.div`
   color: ${({ theme, running }) =>
     running ? theme.timer_color_active : theme.timer_color};
   line-height: 0.9;
-  margin-top: 5px;
-  margin-bottom: 0rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 4.5rem;
   width: 22rem;
   flex: 0 0 4.5rem;
@@ -42,6 +43,9 @@ const ToggleWrapper = styled.div`
   margin-top: 10px;
   margin-bottom: 7px;
   font-size: 1.5rem;
+  width: 370px;
+  display: flex;
+  justify-content: center;
 `;
 
 const getOnlyHours = (number) =>
@@ -54,7 +58,7 @@ const AddManually = () => {
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
   const [showEditDescription, setShowEditDescription] = useState(false);
-  const [description, setDescription] = useState('description');
+  const [description, setDescription] = useState('edit description');
   const { currentUser } = useContext(AuthContext);
   const { saveTime } = useContext(FirebaseContext);
 
@@ -81,7 +85,8 @@ const AddManually = () => {
   };
 
   const submit = () => {
-    if (seconds === 0) {
+    console.log('submit');
+    if (seconds === 0 && minutes === 0 && hours === 0) {
       return;
     }
     setSeconds(0);
@@ -101,8 +106,6 @@ const AddManually = () => {
 
   return (
     <AddWrapper>
-      <h1>AddManually</h1>
-
       <TimerDisplayWrapper>
         <StyledInput
           value={hours}
@@ -119,6 +122,7 @@ const AddManually = () => {
           onChange={(event) => onChange(event, 'seconds')}
         />
       </TimerDisplayWrapper>
+      <AntiButtonGeneral onClick={submit}>Add</AntiButtonGeneral>
       <ToggleWrapper>
         {showEditDescription ? (
           <TimerDescription
@@ -132,7 +136,8 @@ const AddManually = () => {
           </AntiButtonGeneral>
         )}
       </ToggleWrapper>
-      <AntiButtonGeneral onClick={submit}>Add</AntiButtonGeneral>
+
+      <TimerHistory />
     </AddWrapper>
   );
 };

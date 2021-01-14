@@ -114,7 +114,7 @@ const ButtonBar = ({ displayMode, setDisplayMode }) => (
       `}
       pressed={displayMode === DISPLAY.OPTIONS}
     >
-      Options
+      Delete
     </OptionsButton>
     <OptionsButton
       onClick={() => {
