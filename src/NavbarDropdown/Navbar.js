@@ -235,7 +235,7 @@ const ThemeMenu = ({ backToMain }) => {
         Toggle Theme
       </DropdownItem>
       <DropdownTextArea>
-        <ToggleTheme lightTheme={theme} onClick={toggleTheme}>
+        <ToggleTheme themeState={theme} onClick={toggleTheme}>
           <Sun /> <Moon />
         </ToggleTheme>
       </DropdownTextArea>
