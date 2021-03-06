@@ -22,14 +22,14 @@ const ToggleTheme = styled.button`
 
     // sun icon
     &:first-child {
-      transform: ${({ lightTheme }) =>
-        lightTheme ? 'translateY(0)' : 'translateY(100px)'};
+      transform: ${({ themeState }) =>
+        themeState !== 'dark' ? 'translateY(0)' : 'translateY(100px)'};
     }
 
     // moon icon
     &:nth-child(2) {
-      transform: ${({ lightTheme }) =>
-        lightTheme ? 'translateY(-100px)' : 'translateY(0)'};
+      transform: ${({ themeState }) =>
+        themeState !== 'dark' ? 'translateY(-100px)' : 'translateY(0)'};
     }
   }
 `;

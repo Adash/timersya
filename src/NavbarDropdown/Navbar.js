@@ -8,6 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import Logo from './Logo';
 import ToggleTheme from '../components/Buttons/ThemeToggle';
+import Cookies from 'js-cookie';
 
 import { AuthContext } from '../firebase/context';
 import { ThemeContext } from '../App/App';
@@ -219,6 +220,11 @@ const DropdownItem = (props) => (
 
 const ThemeMenu = ({ backToMain }) => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'default' : 'dark';
+    Cookies.set('timersya-theme', newTheme);
+    setTheme(newTheme);
+  };
   return (
     <>
       <DropdownItem
@@ -229,7 +235,7 @@ const ThemeMenu = ({ backToMain }) => {
         Toggle Theme
       </DropdownItem>
       <DropdownTextArea>
-        <ToggleTheme lightTheme={theme} onClick={() => setTheme(!theme)}>
+        <ToggleTheme themeState={theme} onClick={toggleTheme}>
           <Sun /> <Moon />
         </ToggleTheme>
       </DropdownTextArea>

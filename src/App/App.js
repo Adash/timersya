@@ -3,6 +3,7 @@ import { GlobalStyle } from '../GlobalStyle';
 import { AuthContext } from '../firebase/context';
 import LoadingFallback from './LoadingFallback';
 import Theme from './Theme';
+import Cookies from 'js-cookie';
 
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
@@ -10,8 +11,9 @@ const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 export const ThemeContext = React.createContext(null);
 
 function App() {
+  const storedTheme = Cookies.get('timersya-theme');
   const { currentUser } = useContext(AuthContext);
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState(storedTheme ? storedTheme : true);
 
   // just for debugging
   // useEffect(() => {

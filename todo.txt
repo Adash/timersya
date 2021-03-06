@@ -1,5 +1,6 @@
 
 # Current Task!
+
   try to prevent the displaying of 'unauthenticated app' for a second when the user is logged in 
 
   Next subtask: Tidy up and refactor Stats component
