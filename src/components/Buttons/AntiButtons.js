@@ -26,6 +26,7 @@ export const AntiButtonOK = styled(AntiButton)`
 `;
 
 export const AntiButtonGeneral = styled(AntiButton)`
+  cursor: pointer;
   color: ${(props) => props.theme.base_color || '#d2ba3f'};
 `;
 
