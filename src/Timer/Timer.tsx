@@ -11,6 +11,17 @@ import {
 } from '../components/Buttons';
 import styled from 'styled-components';
 
+type TimerProps = {
+  seconds: number;
+  running: boolean;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetTimer: () => void;
+  onSave: () => void;
+  description: string;
+  setDescription: () => void;
+};
+
 const TimerWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -25,7 +36,7 @@ const TimerWrapper = styled.div`
 
 const TimerDisplayWrapper = styled.div`
   font-weight: ${(props) => props.theme.timer_font_weight || 'bold'};
-  color: ${({ theme, running }) =>
+  color: ${({ theme, running }: { theme: any; running: boolean }) =>
     running ? theme.timer_color_active : theme.timer_color};
   line-height: 0.9;
   margin-top: 5px;
@@ -50,16 +61,27 @@ const StyledDigits = styled.div`
   width: 6.1rem;
 `;
 
-const getOnlyHours = (number) =>
-  Math.floor((number % (60 * 60 * 24)) / (60 * 60));
-const getOnlyMinutes = (number) => Math.floor((number % (60 * 60)) / 60);
-const getOnlySeconds = (number) => Math.floor(number % 60);
+const FlexBasis13 = styled.div`
+  flex-basis: 13%;
+`;
 
-const PaddedTime = ({ children }) => (
+const getOnlyHours = (number: number) =>
+  Math.floor((number % (60 * 60 * 24)) / (60 * 60));
+const getOnlyMinutes = (number: number) =>
+  Math.floor((number % (60 * 60)) / 60);
+const getOnlySeconds = (number: number) => Math.floor(number % 60);
+
+const PaddedTime = ({ children }: { children: number }) => (
   <StyledDigits>{children.toString().padStart(2, '0')}</StyledDigits>
 );
 
-const TimerDisplay = ({ seconds, running }) => {
+const TimerDisplay = ({
+  seconds,
+  running,
+}: {
+  seconds: number;
+  running: boolean;
+}) => {
   return (
     <TimerDisplayWrapper running={running}>
       <PaddedTime>{getOnlyHours(seconds)}</PaddedTime>:
@@ -78,7 +100,7 @@ const Timer = ({
   onSave,
   description,
   setDescription,
-}) => {
+}: TimerProps) => {
   const [showEditDescription, setShowEditDescription] = useState(false);
   return (
     <TimerWrapper>
@@ -96,11 +118,7 @@ const Timer = ({
           </AntiButtonGeneral>
         )}
       </ToggleWrapper>
-      <div
-        css={`
-          flex-basis: 13%;
-        `}
-      >
+      <FlexBasis13>
         <TimerButtonReset onClick={resetTimer}>reset</TimerButtonReset>
         {!running ? (
           <TimerButtonStart onClick={startTimer}>start</TimerButtonStart>
@@ -108,7 +126,7 @@ const Timer = ({
           <TimerButtonStop onClick={stopTimer}>stop</TimerButtonStop>
         )}
         <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
-      </div>
+      </FlexBasis13>
 
       <TimeHistory />
     </TimerWrapper>
