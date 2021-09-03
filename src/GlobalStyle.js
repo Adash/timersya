@@ -302,6 +302,10 @@ a:not([href]):hover {
   text-decoration: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 body {
   height: 100vh;
   margin: 0;

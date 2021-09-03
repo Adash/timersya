@@ -10,7 +10,7 @@ import Logo from './Logo';
 import ToggleTheme from '../components/Buttons/ThemeToggle';
 import Cookies from 'js-cookie';
 
-import { AuthContext } from '../firebase/context';
+import { AuthContext, FirebaseContext } from '../firebase/context';
 import { ThemeContext } from '../App/App';
 
 import { ReactComponent as CogIcon } from './icons/cog.svg';
@@ -292,6 +292,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
   const mainRef = useRef(null);
   const themeRef = useRef(null);
   const aboutRef = useRef(null);
+  const { signOut } = useContext(FirebaseContext);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -379,6 +380,13 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
             handleClick={() => setActiveMenu('about')}
           >
             About
+          </DropdownItem>
+          <DropdownItem
+            leftIcon={<ArrowIcon />}
+            rightIcon={<ChevronIcon />}
+            handleClick={signOut}
+          >
+            Logout
           </DropdownItem>
         </SubMenuWrapper>
       </CSSTransition>
