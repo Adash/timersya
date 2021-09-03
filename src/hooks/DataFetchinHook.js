@@ -22,7 +22,8 @@ const useGetFirebaseData = () => {
             ...value,
             id: key,
           }))
-          .filter((item) => item.user === currentUser.uid);
+          .filter((item) => item.user === currentUser.uid)
+          .reverse();
         // set the below to ENV DEV
         console.log('Data fetched via useGetFirebaseData hook: ');
         console.log(dataArray);
