@@ -386,7 +386,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
             rightIcon={<ChevronIcon />}
             handleClick={signOut}
           >
-            Logout
+            Sign out
           </DropdownItem>
         </SubMenuWrapper>
       </CSSTransition>

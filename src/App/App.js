@@ -13,7 +13,7 @@ export const ThemeContext = React.createContext(null);
 function App() {
   const storedTheme = Cookies.get('timersya-theme');
   const { currentUser } = useContext(AuthContext);
-  const [theme, setTheme] = useState(storedTheme ? storedTheme : true);
+  const [theme, setTheme] = useState(storedTheme ? storedTheme : false);
 
   // just for debugging
   // useEffect(() => {
