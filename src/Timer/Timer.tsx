@@ -129,13 +129,13 @@ const Timer = ({
         )}
         <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
       </FlexBasis13>
-      <button
+      <AntiButtonGeneral
         onClick={() => {
           navigate(routes.stats);
         }}
       >
-        Stats
-      </button>
+        ShowStats
+      </AntiButtonGeneral>
       <TimeHistory />
     </TimerWrapper>
   );
