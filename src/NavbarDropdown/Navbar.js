@@ -210,6 +210,11 @@ const SubMenuWrapper = styled.div`
   width: 93%;
 `;
 
+const HomeButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
 const DropdownItem = (props) => (
   <StyledDropdownItem onClick={props.handleClick}>
     {props.leftIcon && <IconButton>{props.leftIcon}</IconButton>}
@@ -435,7 +440,7 @@ const Navbar = () => {
   return (
     <StackingContext>
       <StyledNav>
-        <NavPlaceholder />
+        <HomeButton onClick={() => navigate(routes.home)}>🏠</HomeButton>
         <Logo />
         {/* the StyledUl is here in order to allow more menu icons for desktop view */}
         <StyledUl>
