@@ -383,7 +383,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
           </DropdownItem>
           <DropdownItem
             leftIcon={<ArrowIcon />}
-            rightIcon={<ChevronIcon />}
+            rightIcon={' '}
             handleClick={signOut}
           >
             Sign out
