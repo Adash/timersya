@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import { BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip } from 'recharts';
+import {
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Bar,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
 
 const StyledButtonBar = styled.div`
@@ -82,13 +90,15 @@ function mergeDescription(collector, record) {
 }
 
 const Graph = ({ data, currentTheme }) => (
-  <BarChart width={355} height={530} data={data} layout="vertical">
-    <CartesianGrid strokeDasharray="2 2" />
-    <Tooltip />
-    <XAxis type="number" />
-    <YAxis dataKey="day" width={75} type="category" />
-    <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
-  </BarChart>
+  <ResponsiveContainer width={355} height="80%">
+    <BarChart data={data} layout="vertical">
+      <CartesianGrid strokeDasharray="2 2" />
+      <Tooltip />
+      <XAxis type="number" />
+      <YAxis dataKey="day" width={75} type="category" />
+      <Bar dataKey="totalMinutes" fill={currentTheme.base_color} />
+    </BarChart>
+  </ResponsiveContainer>
 );
 
 const Stats = () => {

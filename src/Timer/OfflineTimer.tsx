@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect } from 'react';
 import TimerDescription from './TimerDescription';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
 import moment from 'moment';
