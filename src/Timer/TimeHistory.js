@@ -4,10 +4,13 @@ import styled from 'styled-components';
 import {
   AntiButtonDelete,
   AntiButtonOK,
+  AntiButtonGeneral,
 } from '../components/Buttons/AntiButtons';
 import { NakedInput } from '../components/Elements';
 import { FirebaseContext } from '../firebase/context';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
+import { navigate } from '@reach/router';
+import * as routes from '../constants/routes';
 
 // some Consts for display mode of each element on the times history
 const DISPLAY = {
@@ -89,6 +92,11 @@ const RecordOptionsWrapper = styled(RecordWrapper)`
   justify-content: space-between;
 `;
 
+const ShowStatsButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 // end Styles
 
 const ButtonBar = ({ displayMode, setDisplayMode }) => (
@@ -104,6 +112,15 @@ const ButtonBar = ({ displayMode, setDisplayMode }) => (
     >
       View
     </OptionsButton>
+    <ShowStatsButtonWrapper>
+      <AntiButtonGeneral
+        onClick={() => {
+          navigate(routes.stats);
+        }}
+      >
+        ShowStats
+      </AntiButtonGeneral>
+    </ShowStatsButtonWrapper>
     <OptionsButton
       onClick={() => {
         setDisplayMode(DISPLAY.OPTIONS);

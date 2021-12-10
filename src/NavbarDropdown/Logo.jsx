@@ -32,7 +32,7 @@ const Logo = () => (
       `}
     >
       {' '}
-      v0.8.4.3sw2
+      v0.8.4.4sw
     </span>
   </Link>
 );

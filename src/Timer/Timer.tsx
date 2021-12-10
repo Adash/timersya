@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import TimeHistory from './TimeHistory';
 import TimerDescription from './TimerDescription';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
-import { navigate } from '@reach/router';
-import * as routes from '../constants/routes';
 
 import {
   TimerButtonReset,
@@ -129,15 +127,6 @@ const Timer = ({
         )}
         <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
       </FlexBasis13>
-      <div>
-        <AntiButtonGeneral
-          onClick={() => {
-            navigate(routes.stats);
-          }}
-        >
-          ShowStats
-        </AntiButtonGeneral>
-      </div>
       <TimeHistory />
     </TimerWrapper>
   );
