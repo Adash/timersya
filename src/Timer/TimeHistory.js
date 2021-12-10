@@ -87,7 +87,7 @@ const RecordWrapper = styled.div`
 `;
 
 const RecordOptionsWrapper = styled(RecordWrapper)`
-  justify-content: flex-start;
+  justify-content: space-between;
 `;
 
 // end Styles
@@ -114,7 +114,7 @@ const ButtonBar = ({ displayMode, setDisplayMode }) => (
       `}
       pressed={displayMode === DISPLAY.OPTIONS}
     >
-      Delete
+      Edit
     </OptionsButton>
     <OptionsButton
       onClick={() => {
@@ -203,25 +203,22 @@ const Record = ({
     case DISPLAY.OPTIONS:
       return (
         <RecordOptionsWrapper>
+          <span
+            css={`
+              color: #3d5a80;
+            `}
+          >
+            {date}
+          </span>
           <AntiButtonDelete
             onClick={() => {
               removeHistoryItem(id);
             }}
-            css={`
-              flex: 0 0 auto;
-            `}
           >
             remove
           </AntiButtonDelete>
 
-          <div
-            css={`
-              flex: 1 1 auto;
-              text-align: right;
-            `}
-          >
-            {description}
-          </div>
+          <div>{description}</div>
         </RecordOptionsWrapper>
       );
     default:
