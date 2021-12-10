@@ -13,7 +13,6 @@ import useGetFirebaseData from '../hooks/DataFetchinHook';
 const DISPLAY = {
   TIME: 'TIME',
   OPTIONS: 'OPTIONS',
-  DATE: 'DATE',
 };
 //#
 // Styles
@@ -71,7 +70,7 @@ const OptionsButton = styled.button`
   }) => (pressed ? text_active : text)};
   border: none;
   border-radius: 1px 1px 1px 1px;
-  padding: 6px 10px 6px 10px;
+  padding: 6px 25px 6px 25px;
 `;
 
 const RecordWrapper = styled.div`
@@ -103,29 +102,18 @@ const ButtonBar = ({ displayMode, setDisplayMode }) => (
       `}
       pressed={displayMode === DISPLAY.TIME}
     >
-      Time
+      View
     </OptionsButton>
     <OptionsButton
       onClick={() => {
         setDisplayMode(DISPLAY.OPTIONS);
       }}
       css={`
-        border-radius: 1px 1px 1px 1px;
+        border-radius: 1px 9px 9px 1px;
       `}
       pressed={displayMode === DISPLAY.OPTIONS}
     >
       Edit
-    </OptionsButton>
-    <OptionsButton
-      onClick={() => {
-        setDisplayMode(DISPLAY.DATE);
-      }}
-      css={`
-        border-radius: 1px 9px 9px 1px;
-      `}
-      pressed={displayMode === DISPLAY.DATE}
-    >
-      Date
     </OptionsButton>
   </StyledButtonBar>
 );
@@ -155,7 +143,7 @@ const Record = ({
                   props.theme.time_history_color || '#067bc2'};
               `}
             >
-              <span>{hours}:</span>
+              {hours ? <span>{hours}:</span> : null}
               <span>{minutes}:</span>
               <span>{seconds}</span>
             </span>
