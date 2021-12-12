@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Router } from '@reach/router';
+import { Routes } from 'react-router-dom';
 
-const StyledRouter = styled(Router)`
+const StyledRouter = styled(Routes)`
   position: absolute;
   top: 0;
   bottom: 0;

@@ -7,6 +7,7 @@ import OfflineTimer from '../Timer/OfflineTimer';
 import Stats from '../Stats/Stats';
 import { MainWrapper } from '../components/Wrappers';
 import * as routes from '../constants/routes';
+import { Route } from 'react-router-dom';
 import 'styled-components/macro';
 // timer related imports
 import moment from 'moment';
@@ -77,28 +78,36 @@ const AuthenticatedApp = () => {
       <Navbar />
       <MainWrapper>
         <StyledRouter>
-          <AuthenticatedHome default path={routes.home} />
-          <Timer
+          <Route element={<AuthenticatedHome />} default path={routes.home} />
+          <Route
+            element={
+              <Timer
+                seconds={seconds}
+                running={running}
+                startTimer={startTimer}
+                stopTimer={stopTimer}
+                resetTimer={resetTimer}
+                onSave={onSave}
+                description={description}
+                setDescription={setDescription}
+              />
+            }
             path={routes.timer}
-            seconds={seconds}
-            running={running}
-            startTimer={startTimer}
-            stopTimer={stopTimer}
-            resetTimer={resetTimer}
-            onSave={onSave}
-            description={description}
-            setDescription={setDescription}
           />
-          <OfflineTimer
+          <Route
+            element={
+              <OfflineTimer
+                seconds={seconds}
+                running={running}
+                startTimer={startTimer}
+                stopTimer={stopTimer}
+                resetTimer={resetTimer}
+              />
+            }
             path={routes.offlineTimer}
-            seconds={seconds}
-            running={running}
-            startTimer={startTimer}
-            stopTimer={stopTimer}
-            resetTimer={resetTimer}
           />
-          <AddManually path={routes.add} />
-          <Stats path={routes.stats} />
+          <Route element={<AddManually />} path={routes.add} />
+          <Route element={<Stats />} path={routes.stats} />
         </StyledRouter>
       </MainWrapper>
     </>

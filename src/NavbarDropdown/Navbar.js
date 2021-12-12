@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { navigate } from '@reach/router';
+import { useNavigate } from 'react-router-dom';
 import * as routes from '../constants/routes';
 
 import styled from 'styled-components';
@@ -300,6 +300,7 @@ const SimpleDropdownMenu = ({ currentUser, setOpen, wrapperRef }) => {
   const themeRef = useRef(null);
   const aboutRef = useRef(null);
   const { signOut } = useContext(FirebaseContext);
+  let navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -439,6 +440,7 @@ const NavPlaceholder = () => (
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
+  let navigate = useNavigate();
   return (
     <StackingContext>
       <StyledNav>

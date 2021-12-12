@@ -1,7 +1,7 @@
 import React from 'react';
 import 'styled-components/macro';
 import * as routes from '../constants/routes';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (

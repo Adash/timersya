@@ -9,7 +9,7 @@ import {
 import { NakedInput } from '../components/Elements';
 import { FirebaseContext } from '../firebase/context';
 import useGetFirebaseData from '../hooks/DataFetchinHook';
-import { navigate } from '@reach/router';
+import { useNavigate } from 'react-router-dom';
 import * as routes from '../constants/routes';
 
 // some Consts for display mode of each element on the times history
@@ -99,41 +99,44 @@ const ShowStatsButtonWrapper = styled.div`
 
 // end Styles
 
-const ButtonBar = ({ displayMode, setDisplayMode }) => (
-  <StyledButtonBar>
-    <OptionsButton
-      onClick={() => {
-        setDisplayMode(DISPLAY.TIME);
-      }}
-      css={`
-        border-radius: 9px 1px 1px 9px;
-      `}
-      pressed={displayMode === DISPLAY.TIME}
-    >
-      View
-    </OptionsButton>
-    <ShowStatsButtonWrapper>
-      <AntiButtonGeneral
+const ButtonBar = ({ displayMode, setDisplayMode }) => {
+  let navigate = useNavigate();
+  return (
+    <StyledButtonBar>
+      <OptionsButton
         onClick={() => {
-          navigate(routes.stats);
+          setDisplayMode(DISPLAY.TIME);
         }}
+        css={`
+          border-radius: 9px 1px 1px 9px;
+        `}
+        pressed={displayMode === DISPLAY.TIME}
       >
-        ShowStats
-      </AntiButtonGeneral>
-    </ShowStatsButtonWrapper>
-    <OptionsButton
-      onClick={() => {
-        setDisplayMode(DISPLAY.OPTIONS);
-      }}
-      css={`
-        border-radius: 1px 9px 9px 1px;
-      `}
-      pressed={displayMode === DISPLAY.OPTIONS}
-    >
-      Edit
-    </OptionsButton>
-  </StyledButtonBar>
-);
+        View
+      </OptionsButton>
+      <ShowStatsButtonWrapper>
+        <AntiButtonGeneral
+          onClick={() => {
+            navigate(routes.stats);
+          }}
+        >
+          ShowStats
+        </AntiButtonGeneral>
+      </ShowStatsButtonWrapper>
+      <OptionsButton
+        onClick={() => {
+          setDisplayMode(DISPLAY.OPTIONS);
+        }}
+        css={`
+          border-radius: 1px 9px 9px 1px;
+        `}
+        pressed={displayMode === DISPLAY.OPTIONS}
+      >
+        Edit
+      </OptionsButton>
+    </StyledButtonBar>
+  );
+};
 
 const Record = ({
   item: { hours, minutes, seconds, date, id, description },

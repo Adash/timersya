@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FirebaseContext } from '../firebase/context';
-import { Link, useNavigate } from '@reach/router';
+import { Link, useNavigate } from 'react-router-dom';
 import * as routes from '../constants/routes';
 import { StyledError, H1Gray } from '../components/Elements';
 import { FancyLoginForm } from '../components/FancyForms';

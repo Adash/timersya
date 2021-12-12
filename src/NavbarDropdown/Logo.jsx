@@ -1,6 +1,6 @@
 import React from 'react';
 import * as routes from '../constants/routes';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import 'styled-components/macro';
 
 const Logo = () => (
