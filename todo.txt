@@ -15,6 +15,8 @@ Please update the following components: Transition
 
 ##
 
+- add keyboard shortcuts for the play pause and save with tooltips.
+
 - fix handling errors on invalid login:
 Failed to load resource: the server responded with a status of 400 ()
 
@@ -27,7 +29,7 @@ Failed to load resource: the server responded with a status of 400 ()
 - split home component in two components (unauthenticated and authenticated)
 
 - fix the bux when the sign up (and maybe log in) 
-form is moving up when the error message appears
+form is moving up when the error message appearso
 
 - add option for editing date
 
