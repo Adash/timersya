@@ -17,10 +17,15 @@ Please update the following components: Transition
 
 - add keyboard shortcuts for the play pause and save with tooltips.
 
+- add advanced stats like missed days etc on a separate page.
+
 - fix handling errors on invalid login:
 Failed to load resource: the server responded with a status of 400 ()
 
 # small tasks
+
+- Navbar.js line 431 : see if you can move this and similar CSS into a component above by using some 
+  clever css in JS shortcuts for 
 
 - merge ButtonLink and Button styles used on Home Screen
 
