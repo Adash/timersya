@@ -19,6 +19,9 @@ Please update the following components: Transition
 
 - add advanced stats like missed days etc on a separate page.
 
+- try adding this charts instead of the boring now (add option to switch between) 
+https://github.com/jwilber/roughViz
+
 - fix handling errors on invalid login:
 Failed to load resource: the server responded with a status of 400 ()
 
