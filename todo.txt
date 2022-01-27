@@ -16,6 +16,8 @@ Please update the following components: Transition
 ##
 
 - add keyboard shortcuts for the play pause and save with tooltips.
+  Practically implemented. test and investigate with console.logs if there's no problems with stale functions or functions geing 
+  generated too often
 
 - add advanced stats like missed days etc on a separate page.
 

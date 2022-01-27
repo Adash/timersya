@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { StyledRouter } from '../components/Wrappers';
 import Navbar from '../NavbarDropdown/Navbar';
 import { AuthenticatedHome } from '../Home/';
@@ -30,6 +30,11 @@ const AuthenticatedApp = () => {
   const [timerInterval, setTimerInterval] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { saveTime } = useContext(FirebaseContext);
+  const [showEditDescription, setShowEditDescription] = useState(false);
+
+  useEffect(() => {
+    setSeconds(timeElapsed);
+  }, [timeElapsed]);
 
   const startTimer = () => {
     setRunning(true);
@@ -40,10 +45,6 @@ const AuthenticatedApp = () => {
       }, 1000)
     );
   };
-
-  useEffect(() => {
-    setSeconds(timeElapsed);
-  }, [timeElapsed]);
 
   const stopTimer = () => {
     setRunning(false);
@@ -73,6 +74,40 @@ const AuthenticatedApp = () => {
     saveTime(newTime);
   };
 
+  const handleKeypress = useCallback(
+    (event) => {
+      console.log(`key pressed: ${event.key}`);
+      if (showEditDescription) return;
+      const keyPressed = event.key.toLowerCase();
+      switch (keyPressed) {
+        case ' ':
+          if (running) {
+            stopTimer();
+          } else {
+            startTimer();
+          }
+          break;
+        case 's':
+          onSave();
+          break;
+        case 'r':
+          resetTimer();
+          break;
+        default:
+          break;
+      }
+    },
+    [running, showEditDescription]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeypress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeypress);
+    };
+  }, [handleKeypress]);
+
   return (
     <>
       <Navbar />
@@ -90,6 +125,8 @@ const AuthenticatedApp = () => {
                 onSave={onSave}
                 description={description}
                 setDescription={setDescription}
+                showEditDescription={showEditDescription}
+                setShowEditDescription={setShowEditDescription}
               />
             }
             path={routes.timer}

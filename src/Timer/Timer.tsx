@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TimeHistory from './TimeHistory';
 import TimerDescription from './TimerDescription';
 import { AntiButtonGeneral } from '../components/Buttons/AntiButtons';
@@ -20,6 +20,8 @@ type TimerProps = {
   onSave: () => void;
   description: string;
   setDescription: () => void;
+  showEditDescription: boolean;
+  setShowEditDescription: (boolean) => void;
 };
 
 const TimerWrapper = styled.div`
@@ -100,8 +102,9 @@ const Timer = ({
   onSave,
   description,
   setDescription,
+  showEditDescription,
+  setShowEditDescription,
 }: TimerProps) => {
-  const [showEditDescription, setShowEditDescription] = useState(false);
   return (
     <TimerWrapper>
       <TimerDisplay seconds={seconds} running={running} />
