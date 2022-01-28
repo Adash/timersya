@@ -122,13 +122,21 @@ const Timer = ({
         )}
       </ToggleWrapper>
       <FlexBasis13>
-        <TimerButtonReset onClick={resetTimer}>reset</TimerButtonReset>
+        <TimerButtonReset title="reset (r)" onClick={resetTimer}>
+          reset
+        </TimerButtonReset>
         {!running ? (
-          <TimerButtonStart onClick={startTimer}>start</TimerButtonStart>
+          <TimerButtonStart title="start (<spacebar>)" onClick={startTimer}>
+            start
+          </TimerButtonStart>
         ) : (
-          <TimerButtonStop onClick={stopTimer}>stop</TimerButtonStop>
+          <TimerButtonStop title="stop (<spacebar>)" onClick={stopTimer}>
+            stop
+          </TimerButtonStop>
         )}
-        <TimerButtonSave onClick={onSave}>save</TimerButtonSave>
+        <TimerButtonSave title="save (s)" onClick={onSave}>
+          save
+        </TimerButtonSave>
       </FlexBasis13>
       <TimeHistory />
     </TimerWrapper>
