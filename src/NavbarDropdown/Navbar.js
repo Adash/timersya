@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as routes from '../constants/routes';
+import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 import 'styled-components/macro';
@@ -440,11 +441,17 @@ const NavPlaceholder = () => (
 
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
+  const location = useLocation();
   let navigate = useNavigate();
+  console.log(location);
   return (
     <StackingContext>
       <StyledNav>
-        <BackButton onClick={() => navigate(-1)}>←</BackButton>
+        {location.pathname !== '/' ? (
+          <BackButton onClick={() => navigate(-1)}>←</BackButton>
+        ) : (
+          <NavPlaceholder />
+        )}
         <Logo />
         {/* the StyledUl is here in order to allow more menu icons for desktop view */}
         <StyledUl>
